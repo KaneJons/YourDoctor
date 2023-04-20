@@ -1,0 +1,161 @@
+﻿<Window x:Class="YourDoctor.Authorization_window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YourDoctor"
+        mc:Ignorable="d"
+        Title="Authorization_window" Height="300" Width="380"
+        AllowsTransparency="True" Background="Transparent"
+        WindowStyle="None" ResizeMode="NoResize"
+        MouseDown="MainWindow_OnMouseDown"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+
+            <Border CornerRadius="10" Grid.RowSpan="2">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#FF60C96C" Offset="0.0"/>
+                        <GradientStop Color="#25ae98" Offset="1"/>
+                        <GradientStop Color="#26a38c" Offset="0.6" />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+            </Border>
+
+
+            <StackPanel VerticalAlignment="Center">
+
+                <Button x:Name="btn_close" Style="{StaticResource topButton}" Margin="0,-84,20,0" Background="Transparent" HorizontalAlignment="Right" Click="btn_close_Click">
+                    <Icon:PackIconMaterial Kind="CloseBox"/>
+                </Button>
+
+                <TextBlock Text="Авторизация"
+                           FontWeight="Light"
+                           FontFamily="helvetica"
+                           FontSize="22"
+                           Foreground="GhostWhite"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+
+
+
+            <StackPanel Margin="0,108,0,0" Grid.RowSpan="2" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="textbox1" FontFamily="Helvetica"
+                             FontWeight="Light"
+                             Text="Логин"
+                             FontSize="20"
+                             HorizontalAlignment="Center"
+                             Foreground="White"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Width="235"
+                             HorizontalContentAlignment="Left"
+                             Opacity="0.5"
+                             Height="25"
+                             Margin="63,0,0,0"
+                            GotFocus="RemoveText" LostFocus="AddText" Tag="Логин" />
+
+
+                </StackPanel>
+                <Border Width="250"
+                        Height="2"
+                        Background="White"
+                        Opacity="0.5"/>
+
+
+
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                    <TextBox x:Name="textbox2" FontFamily="Helvetica" Visibility="Hidden"
+                             FontWeight="Light"
+                             FontSize="20"
+                             HorizontalAlignment="Center"
+                             Foreground="White"
+                             Text="Пароль"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Width="235"
+                             HorizontalContentAlignment="Left"
+                             Opacity="0.5"
+                             Height="25"
+                             Margin="63,0,0,0"
+                                 GotFocus="RemovePassword" LostFocus="AddPassword" Tag="Пароль" />
+                    <PasswordBox x:Name="passwordBox" FontFamily="Helvetica"
+                             FontWeight="Light"
+                             FontSize="20"
+                             HorizontalAlignment="Center"
+                             Foreground="White"
+                             Password="Пароль"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Width="235"
+                             HorizontalContentAlignment="Left"
+                             Opacity="0.5"
+                             Height="25"
+                             Margin="-240,0,0,0"
+                                 GotFocus="RemovePassword" LostFocus="AddPassword" Tag="Пароль" />
+
+                </StackPanel>
+                <Border Width="250"
+                        Height="2"
+                        Background="White"
+                        Opacity="0.5"/>
+
+                <Grid Height="43" Width="378">
+                    <CheckBox Content="Отобразить пароль" Margin="61,12,104,10" Style="{DynamicResource CheckBoxStyle1}"
+                              FontWeight="Light"
+                              FontSize="15"
+                              Foreground="White" Click="CheckBox_Click"/>
+                </Grid>
+
+
+
+
+
+                <StackPanel Orientation="Horizontal" Margin="20,12,0,0" Width="100">
+                    <Button x:Name="btn_entry" Width="100" Height="40" Content="Войти" Margin="0,0,60,0" Click="Button_Click_login">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontFamily" Value="Helvetica"/>
+                                <Setter Property="FontWeight" Value="Light"/>
+
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}" CornerRadius="20" BorderThickness="2" BorderBrush="White">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#623ed0"/>
+                                        <Setter Property="Opacity" Value="0.4"/>
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Trigger>
+                                </Style.Triggers>
+
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+
+            </StackPanel>
+
+
+
+
+        </Grid>
+    </Grid>
+</Window>
