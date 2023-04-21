@@ -97,7 +97,8 @@ namespace YourDoctor.WiForms.Administrator
 
         private void btn_nurse_Click(object sender, RoutedEventArgs e)
         {
-
+            txtBlock.Text = "Медсестра/Медбрат";
+            MyFrame.NavigationService.Navigate(new pageNurse());
         }   
         private void btn_patients_Click(object sender, RoutedEventArgs e)
         {
