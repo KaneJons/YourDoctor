@@ -25,85 +25,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!--Иконки меню
-                <Button  Margin="20 28 0 35" Style="{StaticResource topButton}">
-                    <Icon:PackIconMaterial Kind="Opera" Width="15" Height="15"/>
-                </Button>-->
 
-                <!--
-                <Border Grid.Row="1" Background="#623ed0" CornerRadius="0 50 0 30">
-                    <DockPanel>
-                       
-
-                        <Border Width="80" Height="80" Padding="3" Background="White" CornerRadius="100"
-                                DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0">
-                            <Ellipse>
-                                <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/Images/png-clipart-computer-icons-login-google-account-internet-user-cdr-monochrome.png"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-
-                        </Border>
-
-                        Титул Меню
-                        <TextBlock x:Name="textBlock1" Text="Гость" Foreground="White" FontSize="22" FontWeight="SemiBold"
-                                   DockPanel.Dock="Top" TextAlignment="Center" Margin="5 25 0 10"/>
-
-                        <TextBlock x:Name="textBlock2" Text="Авторизуйтесь" Foreground="#d0bfff" FontSize="14" FontWeight="SemiBold"
-                                   DockPanel.Dock="Top" TextAlignment="Center" />
-
-                        Разделитель меню
-                        <Separator Margin="25" DockPanel.Dock="Top" Height="0.8" Background="#7e5fdc"/>
-
-                        Кнопки меню
-                        <StackPanel DockPanel.Dock="Top">
-                            <Button Style="{StaticResource menuButton}" Background="#7b5cd6" Foreground="White" >
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="AccountMultipleOutline" Style="{StaticResource menuButtonIcon}" />
-                                    <TextBlock Text="Преподаватель"/>
-                                </StackPanel>
-                            </Button>
-                            <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="CircleDouble" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Кружок"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="BookAccount" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Занятия"/>
-                                </StackPanel>
-                            </Button>
-
-
-
-                            <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="HumanChild" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Учащийся"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Account" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Родители"/>
-                                </StackPanel>
-                            </Button>
-
-
-                        </StackPanel>
-
-                        <Button Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20">
-                            <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Вход"/>
-                            </StackPanel>
-                        </Button>
-                    </DockPanel>
-                </Border>-->
             </Grid>
 
             <!-- Основной раздел-->
@@ -118,74 +40,11 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <!--Текстовое поле поиска
-
-                <Grid Width="300" HorizontalAlignment="Left">
-                    <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
-                               Panel.ZIndex="1" Text="Search here ..."
-                               Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
-
-                    <TextBox x:Name="txtSearch" Style="{StaticResource textboxSearch}"/>
-
-                    <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center"
-                                           Margin="0 0 15 0" Foreground="#b0b9c6" HorizontalAlignment="Right"/>
-                </Grid>-->
-
-                <!--Верхняя кнопка-->
-
-                <!-- <Button Style="{StaticResource topButton}" Margin="0 0 55 0" HorizontalAlignment="Right">
-                    <Icon:PackIconMaterial Kind="Bell"/>
-                </Button>-->
-
-
-                <!--Название страницы
-                <TextBlock Text="Преподаватель" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
-                           HorizontalAlignment="Left" Foreground="#121518"/>-->
-
-                <!--Кнопка добавления-->
-
-
-
-                <!--Кнопки вкладок
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
-                    <Button Content="Club Staff" Style="{StaticResource tabButton}" BorderBrush="#784ff2"/>
-                    <Button Content="Players" Style="{StaticResource tabButton}"/>
-                    <Button Content="Archived" Style="{StaticResource tabButton}"/>
-                </StackPanel>-->
-
-                <!--Заголовок счетчика
-                <TextBlock Text="68 Club Staff" Grid.Row="4" FontSize="18" FontWeight="SemiBold"
-                           Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                
-                <TextBlock Text="Поиск по фамилии" Grid.Row="4" FontSize="13" FontWeight="SemiBold" Margin="0 0 215 0"
-                           Foreground="#121518" HorizontalAlignment="Right" VerticalAlignment="Center"/>-->
-
-                <!--Текстовое поле фильтра
-                <Grid Width="200" HorizontalAlignment="Right" Grid.Row="4">
-                    <TextBlock x:Name="textbox_search" Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
-                               Panel.ZIndex="1" Text="Введите фамилию..."
-                               Visibility="{Binding ElementName=txtFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
-
-                    <TextBox x:Name="txtFilter" Style="{StaticResource textboxFilter}" TextChanged="txtFilter_TextChanged"/>
-
-                </Grid>-->
-
-
-                <!--Memebers Datagrid-->
 
                 <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="5" x:Name="nurseDataGrid" Margin="0,20,0,0" HorizontalAlignment="Left" Width="570" Height="390" VerticalAlignment="Top">
 
                     <DataGrid.Columns>
-                        <!--<DataGridCheckBoxColumn CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
-                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <CheckBox Style="{StaticResource CheckBoxStyle1}"/>
-                                </DataTemplate>
-                            </DataGridCheckBoxColumn.HeaderTemplate>
-                        </DataGridCheckBoxColumn>-->
 
-
-                        <!--<DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number}"/>-->
                         <DataGridTextColumn Header="Код" IsReadOnly="True"  Width="auto" Binding="{Binding id}"/>
                         <DataGridTextColumn Header="ФИО" IsReadOnly="True"  Width="auto" Binding="{Binding fio}"/>
                         <DataGridTextColumn Header="Пол" IsReadOnly="True"  Width="auto" Binding="{Binding sex}"/>
@@ -206,38 +65,6 @@
                     </DataGrid.Columns>
 
                 </DataGrid>
-
-                <!--Pagination Section-->
-                <!-- <Border Grid.Row="6" HorizontalAlignment="Right" BorderBrush="#dee4ec" BorderThickness="1"
-                        CornerRadius="5" Padding="5" Background="White" Margin="0 10 10 10">
-                    <StackPanel Orientation="Horizontal">
-
-                        <Button Style="{StaticResource pagingButton}">
-                            <Icon:PackIconMaterial Kind="ChevronLeft" Style="{StaticResource pagingButtonIcon}"/>
-                        </Button>
-
-                        <Rectangle Width="1" Fill="#dee4ec" Margin="3 7"/>
-
-                        <Button Style="{StaticResource pagingButton}" Content="1"/>
-                        <Button Style="{StaticResource pagingButton}" Content="2" Background="#7950f2" Foreground="#ffffff"/>
-                        <Button Style="{StaticResource pagingButton}" Content="3"/>
-
-                        <TextBlock Text="..." Foreground="#6c7682" VerticalAlignment="Center" FontSize="15" Margin="10 0"/>
-
-                        <Button Style="{StaticResource pagingButton}" Content="7"/>
-                        <Button Style="{StaticResource pagingButton}" Content="8"/>
-                        <Button Style="{StaticResource pagingButton}" Content="9"/>
-                        
-                        <Rectangle Width="1" Fill="#dee4ec" Margin="3 7"/>
-
-                        <Button Style="{StaticResource pagingButton}">
-                            <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource pagingButtonIcon}"/>
-                        </Button>
-
-                        
-
-                    </StackPanel>
-                </Border>-->
 
             </Grid>
 

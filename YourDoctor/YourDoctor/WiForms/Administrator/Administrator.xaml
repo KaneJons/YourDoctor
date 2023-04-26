@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="Teacher" Height="720" Width="1080" WindowStartupLocation="CenterScreen" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent"
-        >
+        MaxHeight="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenHeight}}"
+       >
 
 
     <Window.Resources>
@@ -60,26 +61,13 @@
 
                         <!--Кнопки меню-->
                         <StackPanel DockPanel.Dock="Top">
-                            <!--<Button Style="{StaticResource menuButton}" >
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="AccountMultipleOutline" Style="{StaticResource menuButtonIcon}" />
-                                    <TextBlock Text="Преподаватель"/>
-                                </StackPanel>
-                            </Button>-->
+
                             <Button x:Name="btn_service" Style="{StaticResource menuButton}" Click="btn_service_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="CircleDouble" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Услуга"/>
                                 </StackPanel>
                             </Button>
-
-                            <!--  <Button Style="{StaticResource menuButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="BookAccount" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Занятия"/>
-                                </StackPanel>
-                            </Button>-->
-
 
 
                             <Button x:Name="btn_specialist" Style="{StaticResource menuButton}" Click="btn_specialist_Click">
@@ -135,21 +123,6 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <!--Текстовое поле поиска
-
-                <Grid Width="300" HorizontalAlignment="Left">
-                    <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
-                               Panel.ZIndex="1" Text="Search here ..."
-                               Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
-
-                    <TextBox x:Name="txtSearch" Style="{StaticResource textboxSearch}"/>
-
-                    <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center"
-                                           Margin="0 0 15 0" Foreground="#b0b9c6" HorizontalAlignment="Right"/>
-                </Grid>-->
-
-                <!--Верхняя кнопка-->
-
                 <Button x:Name="btn_close" Style="{StaticResource topButton}" Margin="0 0 20 0" Background="Transparent" HorizontalAlignment="Right" Click="btn_close_Click">
                     <Icon:PackIconMaterial Kind="CloseBox"/>
                 </Button>
@@ -161,86 +134,15 @@
                 <Button x:Name="btn_roll_up" Style="{StaticResource topButton3}" Margin="0,0,53,0" Background="Transparent" Click="btn_maximized_Click" Height="30" VerticalAlignment="Center" Width="30" HorizontalAlignment="Right">
                     <Icon:PackIconMaterial Kind="WindowMaximize"/>
                 </Button>
-                <!-- <Button Style="{StaticResource topButton}" Margin="0 0 55 0" HorizontalAlignment="Right">
-                    <Icon:PackIconMaterial Kind="Bell"/>
-                </Button>-->
 
-
-                <!--Название страницы-->
                 <TextBlock x:Name="txtBlock" Text="Выберите объект" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
                            HorizontalAlignment="Left" Foreground="#121518"/>
 
-                <!--Кнопка добавления
-                <Button x:Name="add_new_string" Style="{StaticResource addButton}" Margin="0,24,0,4" Grid.Row="1" Width="231" Click="add_new_string_Click">
-                    <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0 1 8 0"/>
-                        <TextBlock Text="Добавить нового преподавателя"/>
-                    </StackPanel>
-                </Button>-->
-
-                <!--Разделитель-->
                 <Separator Height="1" Grid.Row="3" Background="#dae2ea" Margin="0 -1 0 10"/>
 
-                <!--Кнопки вкладок
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
-                    <Button Content="Club Staff" Style="{StaticResource tabButton}" BorderBrush="#784ff2"/>
-                    <Button Content="Players" Style="{StaticResource tabButton}"/>
-                    <Button Content="Archived" Style="{StaticResource tabButton}"/>
-                </StackPanel>-->
-
-                <!--Заголовок счетчика
-                <TextBlock Text="68 Club Staff" Grid.Row="4" FontSize="18" FontWeight="SemiBold"
-                           Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                -->
-                <!--<TextBlock Text="Поиск по фамилии" Grid.Row="4" FontSize="13" FontWeight="SemiBold" Margin="0 0 215 0"
-                           Foreground="#121518" HorizontalAlignment="Right" VerticalAlignment="Center"/>-->
-
-                <!--Текстовое поле фильтра
-                <Grid Width="200" HorizontalAlignment="Right" Grid.Row="4">
-                    <TextBlock x:Name="textbox_search" Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
-                               Panel.ZIndex="1" Text="Введите фамилию..."
-                               Visibility="{Binding ElementName=txtFilter, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
-
-                    <TextBox x:Name="txtFilter" Style="{StaticResource textboxFilter}" TextChanged="txtFilter_TextChanged"/>
-
-                </Grid>-->
 
                 <Frame Grid.Row="5" Name="MyFrame" NavigationUIVisibility="Hidden" />
 
-                <!--Memebers Datagrid-->
-
-
-                <!--Pagination Section-->
-                <!-- <Border Grid.Row="6" HorizontalAlignment="Right" BorderBrush="#dee4ec" BorderThickness="1"
-                        CornerRadius="5" Padding="5" Background="White" Margin="0 10 10 10">
-                    <StackPanel Orientation="Horizontal">
-
-                        <Button Style="{StaticResource pagingButton}">
-                            <Icon:PackIconMaterial Kind="ChevronLeft" Style="{StaticResource pagingButtonIcon}"/>
-                        </Button>
-
-                        <Rectangle Width="1" Fill="#dee4ec" Margin="3 7"/>
-
-                        <Button Style="{StaticResource pagingButton}" Content="1"/>
-                        <Button Style="{StaticResource pagingButton}" Content="2" Background="#7950f2" Foreground="#ffffff"/>
-                        <Button Style="{StaticResource pagingButton}" Content="3"/>
-
-                        <TextBlock Text="..." Foreground="#6c7682" VerticalAlignment="Center" FontSize="15" Margin="10 0"/>
-
-                        <Button Style="{StaticResource pagingButton}" Content="7"/>
-                        <Button Style="{StaticResource pagingButton}" Content="8"/>
-                        <Button Style="{StaticResource pagingButton}" Content="9"/>
-                        
-                        <Rectangle Width="1" Fill="#dee4ec" Margin="3 7"/>
-
-                        <Button Style="{StaticResource pagingButton}">
-                            <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource pagingButtonIcon}"/>
-                        </Button>
-
-                        
-
-                    </StackPanel>
-                </Border>-->
 
             </Grid>
 

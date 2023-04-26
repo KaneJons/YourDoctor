@@ -38,7 +38,7 @@ namespace YourDoctor.WiForms.Administrator
 
         private void btn_addLog_Click(object sender, RoutedEventArgs e)
         {
-            //this.NavigationService.Navigate(new PageCard());
+            this.NavigationService.Navigate(new addNurse());
         }
     }
 }

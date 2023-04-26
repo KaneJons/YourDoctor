@@ -123,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Generate.cs" />
+    <Compile Include="WiForms\Administrator\addNurse.xaml.cs">
+      <DependentUpon>addNurse.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WiForms\Administrator\Administrator.xaml.cs">
       <DependentUpon>Administrator.xaml</DependentUpon>
     </Compile>
@@ -141,6 +145,10 @@
       <DependentUpon>Authorization_window.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="WiForms\Administrator\addNurse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WiForms\Administrator\Administrator.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

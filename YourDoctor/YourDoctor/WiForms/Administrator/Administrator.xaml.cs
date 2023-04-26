@@ -70,6 +70,7 @@ namespace YourDoctor.WiForms.Administrator
             if (this.WindowState == WindowState.Normal)
             {
                 oldState = this.WindowState;
+
                 this.WindowState = WindowState.Maximized;
             }
             else
