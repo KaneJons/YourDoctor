@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace YourDoctor
@@ -92,7 +94,50 @@ namespace YourDoctor
             return passwordBuilder.ToString();
         }
 
+        public static string FormatPhoneNumber(string phoneNumber)
+        {
+            // Удаляем все символы, кроме цифр
+            phoneNumber = Regex.Replace(phoneNumber, @"[^\d]", "");
 
+            // Проверяем, что номер телефона состоит из 11 цифр
+            if (phoneNumber.Length != 11)
+            {
+                // Номер телефона не соответствует требуемому формату
+                // Выводим сообщение об ошибке
+                throw new ArgumentException("Номер телефона должен содержать 11 цифр в формате 8XXXXXXXXXX или +7XXXXXXXXXX");
+            }
+
+            // Если первая цифра 8, заменяем ее на +7
+            if (phoneNumber[0] == '8')
+            {
+                phoneNumber = "7" + phoneNumber.Substring(1);
+            }
+
+            // Применяем шаблон к номеру телефона
+            string formattedPhoneNumber = Regex.Replace(phoneNumber, @"(\d{1})(\d{3})(\d{3})(\d{2})(\d{2})", "+$1 $2 $3-$4-$5");
+
+            return formattedPhoneNumber;
+        }
+
+        public static string transHash (string password) {
+
+            // генерируем соль
+            byte[] salt = new byte[16];
+            new RNGCryptoServiceProvider().GetBytes(salt);
+
+            // хэшируем пароль с использованием соли
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+
+            // соединяем соль и хэш в один массив для сохранения в базе данных
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            // сохраняем хэш и соль в базу данных, например, в таблицу пользователей
+            return Convert.ToBase64String(hashBytes);
+
+        }
 
     }
 }

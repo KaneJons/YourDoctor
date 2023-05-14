@@ -1,22 +1,13 @@
 ﻿using Npgsql;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using YourDoctor.WiForms.Administrator;
+using YourDoctor.WiForms.Nurse;
 
 namespace YourDoctor
 {
@@ -28,7 +19,7 @@ namespace YourDoctor
         public Authorization_window()
         {
             InitializeComponent();
-            Connection.Table_Fill("Авторизация", "select *from \"authorization\";");
+            Connection.Table_Fill("Авторизация", "select *from \"authorization\" order by id asc;");
         }
 
         string username, password, sql1;
@@ -38,6 +29,11 @@ namespace YourDoctor
 
         private void Button_Click_login(object sender, RoutedEventArgs e)
         {
+            //textbox2.Text=Generate.transHash(textbox1.Text);
+            //if (testPassw(textbox2.Text,textbox1.Text))
+            //{
+            //    MessageBox.Show("Верно");
+            //}
 
             if (textbox2.Visibility == Visibility.Hidden && passwordBox.Visibility == Visibility.Visible)
             {
@@ -58,19 +54,59 @@ namespace YourDoctor
                     try
                     {
                         var loginDict = Connection.ds.Tables["Авторизация"].AsEnumerable()
-                            .ToDictionary(row => row.Field<string>("login"), row => row.Field<string>("password"));
+                            .ToDictionary(row => row.Field<string>("login"), row => new { Password = row.Field<string>("password"), Role = row.Field<string>("role")});
 
                         if (loginDict.ContainsKey(textbox1.Text))
                         {
-
-                           if(testPassw(loginDict[textbox1.Text], password))
+                            if (testPassw(loginDict[textbox1.Text].Password, password))
                             {
-                                Administrator administrator= new Administrator();
-                                administrator.Show();
-                                this.Close();
+                                switch (loginDict[textbox1.Text].Role)
+                                {
+                                    case "Администратор":
+                                        Administrator administrator = new Administrator();
+                                        try
+                                        {
+                                            administrator.Show();
+                                        }
+                                        finally
+                                        {
+                                            this.Close();
+                                        }
+                                        break;
+                                    case "Медсестра":
+                                        
+                                        try
+                                        {
+                                            string id="";
+                                            foreach (DataRow row in Connection.ds.Tables["Авторизация"].Rows)
+                                            {
+                                                if (textbox1.Text == row["login"].ToString())
+                                                {
+                                                    id = row["nurse_id"].ToString();
+                                                    break;
+                                                }
+                                            }
+                                            Connection.Table_Fill("Nurse", "select *from \"nurse\" order by id asc;");
+                                            DataRow[] nurseRows = Connection.ds.Tables["Nurse"].Select("id = '" + id + "'");
+                                            if (nurseRows.Length > 0)
+                                            {
+                                                DataRow nurseRow = nurseRows[0];
+                                                Nurse nurse = new Nurse($"{nurseRow["family"]} {nurseRow["imy"]}");
+                                                nurse.Show();
+                                            }
+                                            Connection.ds.Tables["Nurse"].Clear();
+                                            Connection.ds.Tables.Remove("Nurse");
+                                        }
+                                        finally
+                                        {
+                                           this.Close();
+                                        }
+                                        break;
+                                    case "Врач":
+                                        break;
+                                }
                             }
 
-                           
                         }
                         else
                         {

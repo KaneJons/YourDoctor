@@ -1,12 +1,12 @@
-﻿<Page x:Class="YourDoctor.WiForms.Administrator.addNurse"
+﻿<Page x:Class="YourDoctor.WiForms.Administrator.customerNurse"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:YourDoctor.WiForms.Administrator"
+     xmlns:local="clr-namespace:YourDoctor.WiForms.Administrator"
        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" d:DesignWidth="800"
-      Title="pageCoterie"
+      Title="customerNurse"
       
       Background="#eff2f7"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" Height="720" Width="1080">
@@ -36,6 +36,11 @@
             <TextBlock Text="Пол:"  Margin="10,20,0,0" FontSize="20" HorizontalAlignment="Left" Width="50" Grid.Row="4"/>
             <TextBlock Text="Адрес:"  Margin="10,20,0,0" FontSize="20" HorizontalAlignment="Left" Width="74" Grid.Row="5"/>
             <TextBlock Text="Номер телефона:"  Margin="10,20,0,0" FontSize="20" HorizontalAlignment="Left" Width="164" Grid.Row="6"/>
+            <Button  x:Name="btn_ReturnPage_Copy"  Margin="10,225,0,0" Style="{StaticResource etcButton}" Width="44" Height="38" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btn_ReturnPage_Click" Grid.Row="6">
+                <StackPanel Orientation="Horizontal" Width="92" VerticalAlignment="Center">
+                    <Icon:PackIconMaterial Kind="Backburger" VerticalAlignment="Center" Width="35" Height="30" Margin="0 1 8 0"/>
+                </StackPanel>
+            </Button>
         </Grid>
 
 
@@ -55,29 +60,54 @@
             <TextBox x:Name="txtImy" Style="{StaticResource textboxFilter}" Margin="10,62,0,0" VerticalAlignment="Top" Height="37" FontSize="16" HorizontalAlignment="Left" Width="294"/>
             <TextBox x:Name="txtOtchestvo" Style="{StaticResource textboxFilter}" Margin="10,111,0,0" VerticalAlignment="Top" Height="37" FontSize="16" HorizontalAlignment="Left" Width="294"/>
             <TextBox x:Name="txtAddress" Style="{StaticResource textboxFilter}" Margin="10,249,0,0" VerticalAlignment="Top" Height="37" FontSize="16" HorizontalAlignment="Left" Width="559"/>
-            <TextBox x:Name="txtNumberPhone" Style="{StaticResource textboxFilter}" Margin="10,295,0,0" VerticalAlignment="Top" Height="37" FontSize="16" HorizontalAlignment="Left" Width="340" 
-                     Text="Пример: +7 987 654-32-10" GotFocus="txtNumberPhone_GotFocus" LostFocus="txtNumberPhone_LostFocus" />
+            <TextBox x:Name="txtNumberPhone" Style="{StaticResource textboxFilter}" Margin="10,295,0,0" VerticalAlignment="Top" Height="37" FontSize="16" HorizontalAlignment="Left" Width="340" />
 
-            <Button  Name="btn_Save"  Margin="10,30,0,0" Style="{StaticResource saveButton}" Width="238" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btn_Save_Click" Grid.Row="1">
+            <Button  Name="btn_Save"  Margin="10,94,0,0" Style="{StaticResource saveButton}" Width="238" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btn_Save_Click" Grid.Row="1">
                 <StackPanel Orientation="Horizontal" Width="215" VerticalAlignment="Center">
                     <Icon:PackIconMaterial Kind="ContentSave" VerticalAlignment="Center" Width="30" Height="30" Margin="0 1 8 0"/>
                     <TextBlock Text="Сохранить данные" FontSize="20"/>
                 </StackPanel>
             </Button>
 
-            <Button  Name="btn_ReturnPage"  Margin="311,30,0,0" Style="{StaticResource etcButton}" Width="240" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btn_ReturnPage_Click" Grid.Row="1">
+            <!--<Button  Name="btn_ReturnPage"  Margin="314,232,0,0" Style="{StaticResource etcButton}" Width="240" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btn_ReturnPage_Click" Grid.Row="1">
                 <StackPanel Orientation="Horizontal" Width="228" VerticalAlignment="Center">
                     <Icon:PackIconMaterial Kind="Backburger" VerticalAlignment="Center" Width="30" Height="30" Margin="0 1 8 0"/>
                     <TextBlock Text="Вернуться обратно " FontSize="20"/>
                 </StackPanel>
-            </Button>
+            </Button>-->
             <ComboBox Style="{DynamicResource ComboBoxStyle1}" x:Name="comboBox1" ToolTip="Выберите из списка" ItemsSource="{Binding}" SelectedValuePath="Key" DisplayMemberPath="Value" Margin="10,208,0,0" VerticalAlignment="Top" Height="33" Foreground="Black" HorizontalAlignment="Left" Width="166"/>
             <DatePicker Style="{DynamicResource DatePickerStyle1}" x:Name="datePicker" FontSize="20" Margin="10,162,0,220" IsTodayHighlighted="True" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="356"/>
-
+            <Button  x:Name="btn_Delete"  Margin="331,94,0,0" Style="{StaticResource deleteButton}" Width="223" Height="36" VerticalAlignment="Top" Click="btn_Delete_Click" Grid.Row="1" HorizontalAlignment="Left" >
+                <StackPanel Orientation="Horizontal" Width="215" VerticalAlignment="Top">
+                    <Icon:PackIconMaterial Kind="DeleteForever" VerticalAlignment="Center" Width="30" Height="30" Margin="0 1 8 0"/>
+                    <TextBlock Text="Удалить данные" FontSize="20"/>
+                </StackPanel>
+            </Button>
+            <Button  x:Name="btn_Next"  Margin="331,47,0,0" Style="{StaticResource etcButton}" Width="112" Height="36" VerticalAlignment="Top" Click="btn_Next_Click" Grid.Row="1" HorizontalAlignment="Left"  >
+                <StackPanel Orientation="Horizontal" Width="106" VerticalAlignment="Top">
+                    <TextBlock Text="Вперед" FontSize="20"/>
+                    <Icon:PackIconMaterial Kind="ArrowRight" VerticalAlignment="Center" Width="30" Height="30" Margin="0 1 8 0"/>
+                </StackPanel>
+            </Button>
+            <Button  x:Name="btn_End"  Margin="448,46,0,0" Style="{StaticResource etcButton}" Width="106" Height="36" VerticalAlignment="Top" Click="btn_End_Click" Grid.Row="1" HorizontalAlignment="Left" >
+                <StackPanel Orientation="Horizontal" Width="106" VerticalAlignment="Top">
+                    <TextBlock Text="В конец" FontSize="18" Width="74" VerticalAlignment="Center"/>
+                    <Icon:PackIconMaterial Kind="SkipForward" VerticalAlignment="Center" Width="24" Height="250" Margin="0 1 8 0"/>
+                </StackPanel>
+            </Button>
+            <Button  x:Name="btn_Back"  Margin="138,47,0,0" Style="{StaticResource etcButton}" Width="110" Height="36" VerticalAlignment="Top" HorizontalAlignment="Left" Click="btn_Back_Click" Grid.Row="1" >
+                <StackPanel Orientation="Horizontal" Width="106" VerticalAlignment="Center">
+                    <Icon:PackIconMaterial Kind="ArrowLeft" VerticalAlignment="Center" Width="30" Height="30" Margin="0 1 8 0"/>
+                    <TextBlock Text="Назад" FontSize="20"/>
+                </StackPanel>
+            </Button>
+            <Button  x:Name="btn_Start"  Margin="14,47,0,0" Style="{StaticResource etcButton}" Width="119" Height="36"  VerticalAlignment="Top" Click="btn_Start_Click" Grid.Row="1" HorizontalAlignment="Left" >
+                <StackPanel Orientation="Horizontal" Width="106" VerticalAlignment="Center">
+                    <Icon:PackIconMaterial Kind="SkipBackward" VerticalAlignment="Center" Width="24" Height="250" Margin="0 1 8 0"/>
+                    <TextBlock Text="В начало" FontSize="18" Width="74" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
         </Grid>
-
-
-
     </Grid>
 </Page>
 

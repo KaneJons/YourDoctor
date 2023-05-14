@@ -130,8 +130,41 @@
     <Compile Include="WiForms\Administrator\Administrator.xaml.cs">
       <DependentUpon>Administrator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WiForms\Administrator\customerNurse.xaml.cs">
+      <DependentUpon>customerNurse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Administrator\objDoctor\addDoctor.xaml.cs">
+      <DependentUpon>addDoctor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Administrator\objDoctor\customerDoctor.xaml.cs">
+      <DependentUpon>customerDoctor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Administrator\objDoctor\pageDoctor.xaml.cs">
+      <DependentUpon>pageDoctor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WiForms\Administrator\pageNurse.xaml.cs">
       <DependentUpon>pageNurse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Nurse\Nurse.xaml.cs">
+      <DependentUpon>Nurse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Patient\addPatient.xaml.cs">
+      <DependentUpon>addPatient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Patient\customerPatient.xaml.cs">
+      <DependentUpon>customerPatient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Patient\pagePatient.xaml.cs">
+      <DependentUpon>pagePatient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Service\addService.xaml.cs">
+      <DependentUpon>addService.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Service\customerService.xaml.cs">
+      <DependentUpon>customerService.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Service\pageService.xaml.cs">
+      <DependentUpon>pageService.xaml</DependentUpon>
     </Compile>
     <Page Include="Authorization_window.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -153,7 +186,51 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WiForms\Administrator\customerNurse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Administrator\objDoctor\addDoctor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Administrator\objDoctor\customerDoctor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Administrator\objDoctor\pageDoctor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WiForms\Administrator\pageNurse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Nurse\Nurse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Patient\addPatient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Patient\customerPatient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Patient\pagePatient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Service\addService.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Service\customerService.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Service\pageService.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,7 +265,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="WiForms\Doctor\" />
-    <Folder Include="WiForms\Nurse\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="resources\admin.jpg" />

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,42 +12,47 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using YourDoctor.WiForms.Administrator.objDoctor;
 
-namespace YourDoctor.WiForms.Administrator
+namespace YourDoctor.WiForms.Patient
 {
     /// <summary>
-    /// Логика взаимодействия для pageNurse.xaml
+    /// Логика взаимодействия для pagePatient.xaml
     /// </summary>
-    public partial class pageNurse : Page
+    public partial class pagePatient : Page
     {
-        public pageNurse()
+       
+        public pagePatient()
         {
             InitializeComponent();
+            
         }
-         public void Page_Loaded(object sender, RoutedEventArgs e)
+        public void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string sql = "select id, concat(family, ' ', imy, ' ', otchestvo) as fio, sex, birth_date, address, phone  from nurse order by id asc;"; 
-            Connection.Table_Fill("Медсестра",sql);
-            nurseDataGrid.ItemsSource = Connection.ds.Tables["Медсестра"].DefaultView;
-           
+            string sql = "select * from patient order by id asc;";
+            Connection.Table_Fill("Пациент", sql);
+            nurseDataGrid.ItemsSource = Connection.ds.Tables["Пациент"].DefaultView;
+
             nurseDataGrid.SelectionMode = (DataGridSelectionMode)DataGridSelectionUnit.FullRow;
         }
 
-        
-      
+
+
 
         private void btn_addLog_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new addNurse());
+            this.NavigationService.Navigate(new addPatient());
         }
 
         private void nurseDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+           
             if (nurseDataGrid.SelectedItem != null) // Если выбрана строка
             {
-                this.NavigationService.Navigate(new customerNurse(nurseDataGrid.SelectedIndex));
+                this.NavigationService.Navigate(new customerPatient(nurseDataGrid.SelectedIndex));
             }
-            
+
         }
     }
 }

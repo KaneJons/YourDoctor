@@ -29,9 +29,11 @@ namespace YourDoctor
         {
             if (ds.Tables[name] != null)
                 ds.Tables[name].Clear();
-            NpgsqlDataAdapter dat = new NpgsqlDataAdapter(sql, conn);
-            dat.Fill(ds, name);
-            conn.Close();
+            using (var adapter = new NpgsqlDataAdapter(sql, conn))
+            {
+                adapter.Fill(ds,name);
+                conn.Close();
+            }
         }
 
         public void close_conn()
@@ -45,21 +47,23 @@ namespace YourDoctor
 
         public static bool Modification_Execute(string sql)
         {
-            NpgsqlCommand com;
-            com = new NpgsqlCommand(sql, conn);
-            conn.Open();
-            try
+            
+            using (var com = new NpgsqlCommand(sql, conn))
             {
-                com.ExecuteNonQuery();
-            }
-            catch (NpgsqlException e)
-            {
-                MessageBox.Show($"Ошибка:{e}");
+                conn.Open();
+                try
+                {
+                    com.ExecuteNonQuery();
+                }
+                catch (NpgsqlException e)
+                {
+                    MessageBox.Show($"Ошибка:{e}");
+                    conn.Close();
+                    return false;
+                }
                 conn.Close();
-                return false;
+                return true;
             }
-            conn.Close();
-            return true;
         }
 
         public static void FillGrid(string sql, DataGrid dataGrid)

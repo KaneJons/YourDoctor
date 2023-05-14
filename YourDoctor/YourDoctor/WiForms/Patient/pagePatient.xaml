@@ -1,13 +1,13 @@
-﻿<Page x:Class="YourDoctor.WiForms.Administrator.pageNurse"
+﻿<Page x:Class="YourDoctor.WiForms.Patient.pagePatient"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:local="clr-namespace:YourDoctor.WiForms.Administrator"
+      xmlns:local="clr-namespace:YourDoctor.WiForms.Patient"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="pageNurse"  Height="720" Width="1080"  Background="Transparent" Loaded="Page_Loaded"
+      Title="pageDoctor"  Height="720" Width="1080"  Background="Transparent" Loaded="Page_Loaded"
         >
 
 
@@ -45,11 +45,18 @@
 
                     <DataGrid.Columns>
 
-                      <!-- <DataGridTextColumn Header="Код" IsReadOnly="True"  Width="auto" Binding="{Binding id}"/>-->
-                        <DataGridTextColumn Header="ФИО" IsReadOnly="True"  Width="auto" Binding="{Binding fio}"/>
+                        <!-- <DataGridTextColumn Header="Код" IsReadOnly="True"  Width="auto" Binding="{Binding id}"/>-->
+                        <DataGridTextColumn Header="ФИО" IsReadOnly="True"  Width="auto" >
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="{}{0} {1} {2}">
+                                    <Binding Path="family" Mode="OneTime" />
+                                    <Binding Path="imy" Mode="OneTime" />
+                                    <Binding Path="otchestvo" Mode="OneTime" />
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Пол" IsReadOnly="True"  Width="auto" Binding="{Binding sex}"/>
                         <DataGridTextColumn Header="Дата рождения" IsReadOnly="True"  Width="auto" Binding="{Binding birth_date, StringFormat=dd-MM-yyyy}"/>
-
 
                         <DataGridTemplateColumn  IsReadOnly="True" Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
@@ -74,6 +81,13 @@
                 <StackPanel Orientation="Horizontal">
                     <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="20" Height="20" Margin="0 1 8 0"/>
                     <TextBlock Text="Добаить запись"/>
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="btn_printLog" Style="{StaticResource clearButton}" Margin="0,122,0,0" Width="167" Height="35" HorizontalAlignment="Center" VerticalAlignment="Top" Click="btn_printLog_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="Printer" VerticalAlignment="Center" Width="20" Height="20" Margin="0 1 8 0"/>
+                    <TextBlock Text="Распечатать список"/>
                 </StackPanel>
             </Button>
 

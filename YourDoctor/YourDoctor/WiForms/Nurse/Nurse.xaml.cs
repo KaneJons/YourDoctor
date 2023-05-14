@@ -12,30 +12,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using YourDoctor.WiForms.Administrator.objDoctor;
+using YourDoctor.WiForms.Administrator;
 using YourDoctor.WiForms.Patient;
 using YourDoctor.WiForms.Service;
 
-namespace YourDoctor.WiForms.Administrator
+namespace YourDoctor.WiForms.Nurse
 {
     /// <summary>
-    /// Логика взаимодействия для Administrator.xaml
+    /// Логика взаимодействия для Nurse.xaml
     /// </summary>
-    public partial class Administrator : Window
+    public partial class Nurse : Window
     {
-        public Administrator()
+        public Nurse(string name)
         {
             InitializeComponent();
+            textBlock1.Text = name;
             App.RoleUsers = textBlock2.Text;
         }
-
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
         private void btn_exit_Click(object sender, RoutedEventArgs e)
         {
-           
-           Authorization_window authorization_Window = new Authorization_window();
+
+            Authorization_window authorization_Window = new Authorization_window();
             authorization_Window.Show();
             this.Close();
         }
@@ -90,23 +91,6 @@ namespace YourDoctor.WiForms.Administrator
 
         }
 
-        private void btn_service_Click(object sender, RoutedEventArgs e)
-        {
-            txtBlock.Text = "Услуга";
-            MyFrame.NavigationService.Navigate(new pageService());
-        }
-
-        private void btn_specialist_Click(object sender, RoutedEventArgs e)
-        {
-            txtBlock.Text = "Врач";
-            MyFrame.NavigationService.Navigate(new pageDoctor());
-        }
-
-        private void btn_nurse_Click(object sender, RoutedEventArgs e)
-        {
-            txtBlock.Text = "Медсестра/Медбрат";
-            MyFrame.NavigationService.Navigate(new pageNurse());
-        }   
         private void btn_patients_Click(object sender, RoutedEventArgs e)
         {
             txtBlock.Text = "Пациент";
@@ -119,4 +103,3 @@ namespace YourDoctor.WiForms.Administrator
         }
     }
 }
-
