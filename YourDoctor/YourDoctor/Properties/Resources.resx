@@ -117,12 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="man" xml:space="preserve">
-    <value>Мужчина</value>
-    <comment>Мужской пол</comment>
+  <data name="dark" xml:space="preserve">
+    <value>MostWanted</value>
+    <comment>light</comment>
   </data>
-  <data name="women" xml:space="preserve">
-    <value>Женщина</value>
-    <comment>Женский пол</comment>
+  <data name="db" xml:space="preserve">
+    <value>YourDoctor</value>
+  </data>
+  <data name="host" xml:space="preserve">
+    <value>rc1b-vgck3dsn3lxaqtk1.mdb.yandexcloud.net</value>
+  </data>
+  <data name="port" xml:space="preserve">
+    <value>6432</value>
+  </data>
+  <data name="souls" xml:space="preserve">
+    <value>#(rspeedneedfo'_</value>
+    <comment>key you soul</comment>
   </data>
 </root>

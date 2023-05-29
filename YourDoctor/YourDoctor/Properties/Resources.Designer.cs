@@ -61,20 +61,47 @@ namespace YourDoctor.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Мужчина.
+        ///   Ищет локализованную строку, похожую на MostWanted.
         /// </summary>
-        internal static string man {
+        internal static string dark {
             get {
-                return ResourceManager.GetString("man", resourceCulture);
+                return ResourceManager.GetString("dark", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Женщина.
+        ///   Ищет локализованную строку, похожую на YourDoctor.
         /// </summary>
-        internal static string women {
+        internal static string db {
             get {
-                return ResourceManager.GetString("women", resourceCulture);
+                return ResourceManager.GetString("db", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на rc1b-vgck3dsn3lxaqtk1.mdb.yandexcloud.net.
+        /// </summary>
+        internal static string host {
+            get {
+                return ResourceManager.GetString("host", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 6432.
+        /// </summary>
+        internal static string port {
+            get {
+                return ResourceManager.GetString("port", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на #(rspeedneedfo&apos;_.
+        /// </summary>
+        internal static string souls {
+            get {
+                return ResourceManager.GetString("souls", resourceCulture);
             }
         }
     }

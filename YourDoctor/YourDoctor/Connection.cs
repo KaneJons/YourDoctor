@@ -10,12 +10,7 @@ namespace YourDoctor
         //public static NpgsqlConnection conn = new NpgsqlConnection("Server=localhost; Database=YourDoctors;" +
         //    "User Id=postgres;Password=Devilmaycry135790;");
 
-        static string host = "rc1b-vgck3dsn3lxaqtk1.mdb.yandexcloud.net";
-        static string port = "6432";
-        static string db = "YourDoctor";
-        static string username = "MostWanted";
-        static string password = "#(rspeedneedfo'_";
-        static string connString = $"Host={host};Port={port};Database={db};Username={username};Password={password};Ssl Mode=Require; Trust Server Certificate=true;";
+        static string connString = $"Host={Properties.Resources.host};Port={Properties.Resources.port};Database={Properties.Resources.db};Username={Properties.Resources.username};Password={Properties.Resources.password};Ssl Mode=Require; Trust Server Certificate=true;";
 
         public static NpgsqlConnection conn = new NpgsqlConnection(connString);
 
