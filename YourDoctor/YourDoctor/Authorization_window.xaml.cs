@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using YourDoctor.WiForms.Administrator;
+using YourDoctor.WiForms.Doctor;
 using YourDoctor.WiForms.Nurse;
 
 namespace YourDoctor
@@ -19,21 +20,30 @@ namespace YourDoctor
         public Authorization_window()
         {
             InitializeComponent();
+            try
+            {
+                connection = new Connection();
+                // Дополнительный код, в котором используется объект connection
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("","Ошибка",MessageBoxButton.OK,MessageBoxImage.Error);
+                Console.WriteLine($"Ошибка инициализации подключения: {ex}");
+                // Дополнительная обработка ошибки
+            }
+            finally
+            {
+                connection?.close_conn();
+            }
             Connection.Table_Fill("Авторизация", "select *from \"authorization\" order by id asc;");
         }
 
-        string username, password, sql1;
-        Connection connection = new Connection();
-        NpgsqlCommand command;
-        bool flag = false;
+        string password;
+        Connection connection = null;
 
-        private void Button_Click_login(object sender, RoutedEventArgs e)
+
+        private async void Button_Click_login(object sender, RoutedEventArgs e)
         {
-            //textbox2.Text=Generate.transHash(textbox1.Text);
-            //if (testPassw(textbox2.Text,textbox1.Text))
-            //{
-            //    MessageBox.Show("Верно");
-            //}
 
             if (textbox2.Visibility == Visibility.Hidden && passwordBox.Visibility == Visibility.Visible)
             {
@@ -49,7 +59,7 @@ namespace YourDoctor
             }
             else
             {
-                if (connection.OpenConnection() == true)
+                if (connection.OpenConnection()==true)
                 {
                     try
                     {
@@ -103,6 +113,32 @@ namespace YourDoctor
                                         }
                                         break;
                                     case "Врач":
+                                        try
+                                        {
+                                            string id = "";
+                                            foreach (DataRow row in Connection.ds.Tables["Авторизация"].Rows)
+                                            {
+                                                if (textbox1.Text == row["login"].ToString())
+                                                {
+                                                    id = row["doctor_id"].ToString();
+                                                    break;
+                                                }
+                                            }
+                                            Connection.Table_Fill("Doctor", "select *from \"doctor\" order by id asc;");
+                                            DataRow[] doctorRows = Connection.ds.Tables["Doctor"].Select("id = '" + id + "'");
+                                            if (doctorRows.Length > 0)
+                                            {
+                                                DataRow doctorRow = doctorRows[0];
+                                                Doctor doctor = new Doctor($"{doctorRow["family"]} {doctorRow["imy"]}");
+                                                doctor.Show();
+                                            }
+                                            Connection.ds.Tables["Doctor"].Clear();
+                                            Connection.ds.Tables.Remove("Doctor");
+                                        }
+                                        finally
+                                        {
+                                            this.Close();
+                                        }
                                         break;
                                 }
                             }
@@ -192,13 +228,6 @@ namespace YourDoctor
             return true;
         }
 
-
-        private void btn_close_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-
         private void RemovePassword(object sender, RoutedEventArgs e)
         {
             if (textbox2.Visibility == Visibility.Hidden && passwordBox.Visibility == Visibility.Visible)
@@ -243,6 +272,11 @@ namespace YourDoctor
             System.Windows.Controls.TextBox instance = (System.Windows.Controls.TextBox)sender;
             if (string.IsNullOrWhiteSpace(instance.Text))
                 instance.Text = instance.Tag.ToString();
+        }
+
+        private void btn_close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

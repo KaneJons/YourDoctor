@@ -1,0 +1,129 @@
+﻿<Window x:Class="YourDoctor.WiForms.Doctor.Doctor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:YourDoctor.WiForms.Doctor"
+        mc:Ignorable="d"
+        Title="Admin" Height="720" Width="1080" WindowStartupLocation="CenterScreen" WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent"
+        MaxHeight="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenHeight}}"
+       >
+
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+
+    <Border Background="#eff2f7" CornerRadius="30" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--Левое меню-->
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!--Иконки меню-->
+                <Button  Margin="20 28 0 35" Style="{StaticResource topButton}">
+                    <Icon:PackIconMaterial Kind="Opera" Width="15" Height="15"/>
+                </Button>
+
+                <Border Grid.Row="1" Background="#623ed0" CornerRadius="0 50 0 30">
+                    <DockPanel>
+                        <!--Меню Лого-->
+
+                        <Border Width="80" Height="80" Padding="3" Background="White" CornerRadius="100"
+                                DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0">
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="/resources/admin.jpg"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                        </Border>
+
+                        <!--Титул Меню-->
+                        <TextBlock x:Name="textBlock1" Text="{Binding name}" Foreground="White" FontSize="20" FontWeight="SemiBold"
+                                   DockPanel.Dock="Top" TextAlignment="Center" Margin="5 25 0 10" Height="auto" TextWrapping="Wrap" MaxHeight="80"/>
+
+                        <TextBlock x:Name="textBlock2" Text="Врач" Foreground="#d0bfff" FontSize="14" FontWeight="SemiBold"
+                                   DockPanel.Dock="Top" TextAlignment="Center" />
+
+                        <!--Разделитель меню-->
+                        <Separator Margin="25" DockPanel.Dock="Top" Height="0.8" Background="#7e5fdc"/>
+
+                        <!--Кнопки меню-->
+                        <StackPanel DockPanel.Dock="Top">
+                            <Button x:Name="btn_patients" Style="{StaticResource menuButton}" Click="btn_patients_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Account" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Пациент"/>
+                                </StackPanel>
+                            </Button>
+                            <Separator Margin="10" DockPanel.Dock="Top" Height="0.8" Background="#7e5fdc"/>
+
+                            <Button x:Name="btn_lesson_log" Style="{StaticResource menuButton}" Click="btn_lesson_log_Click" Height="68" Width="176">
+                                <StackPanel Orientation="Horizontal" Height="63" Width="176">
+                                    <Icon:PackIconMaterial Kind="Printer" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Журнал записей к     врачу" TextWrapping="Wrap" Width="122" Height="40"/>
+                                </StackPanel>
+                            </Button>
+
+                        </StackPanel>
+
+                        <Button x:Name="btn_exit" Style="{StaticResource menuButton}" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20" Click="btn_exit_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="ExitRun" Style="{StaticResource menuButtonIcon}"/>
+                                <TextBlock Text="Выход"/>
+                            </StackPanel>
+                        </Button>
+                    </DockPanel>
+                </Border>
+            </Grid>
+
+            <!-- Основной раздел-->
+            <Grid Grid.Column="1" Margin="30 20 20 20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Button x:Name="btn_close" Style="{StaticResource topButton}" Margin="0 0 20 0" Background="Transparent" HorizontalAlignment="Right" Click="btn_close_Click">
+                    <Icon:PackIconMaterial Kind="CloseBox"/>
+                </Button>
+
+                <Button x:Name="btn_window_maximized" Style="{StaticResource topButton2}" Margin="0,0,85,0" Background="Transparent" Click="btn_roll_up_Click" Height="30" VerticalAlignment="Center" Width="30" HorizontalAlignment="Right">
+                    <Icon:PackIconMaterial Kind="MinusBox"/>
+                </Button>
+
+                <Button x:Name="btn_roll_up" Style="{StaticResource topButton3}" Margin="0,0,53,0" Background="Transparent" Click="btn_maximized_Click" Height="30" VerticalAlignment="Center" Width="30" HorizontalAlignment="Right">
+                    <Icon:PackIconMaterial Kind="WindowMaximize"/>
+                </Button>
+
+                <TextBlock x:Name="txtBlock" Text="Выберите объект" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0"
+                           HorizontalAlignment="Left" Foreground="#121518"/>
+
+                <Separator Height="1" Grid.Row="3" Background="#dae2ea" Margin="0 -1 0 10"/>
+
+
+                <Frame Grid.Row="5" Name="MyFrame" NavigationUIVisibility="Hidden" />
+
+
+            </Grid>
+
+
+        </Grid>
+    </Border>
+</Window>

@@ -1,26 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using YourDoctor.WiForms.Administrator.objDoctor;
-using YourDoctor.WiForms.Administrator;
 using YourDoctor.WiForms.Patient;
-using YourDoctor.WiForms.Service;
+using YourDoctor.WiForms.Log;
 
 namespace YourDoctor.WiForms.Nurse
 {
-    /// <summary>
-    /// Логика взаимодействия для Nurse.xaml
-    /// </summary>
     public partial class Nurse : Window
     {
         public Nurse(string name)
@@ -40,6 +24,19 @@ namespace YourDoctor.WiForms.Nurse
             authorization_Window.Show();
             this.Close();
         }
+
+        private void btn_patients_Click(object sender, RoutedEventArgs e)
+        {
+            txtBlock.Text = "Пациент";
+            MyFrame.NavigationService.Navigate(new pagePatient());
+        }
+
+        private void btn_lesson_log_Click(object sender, RoutedEventArgs e)
+        {
+            txtBlock.Text = "Журнад записи к врачу";
+            MyFrame.NavigationService.Navigate(new pageLog());
+        }
+
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -91,15 +88,6 @@ namespace YourDoctor.WiForms.Nurse
 
         }
 
-        private void btn_patients_Click(object sender, RoutedEventArgs e)
-        {
-            txtBlock.Text = "Пациент";
-            MyFrame.NavigationService.Navigate(new pagePatient());
-        }
-
-        private void btn_lesson_log_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+     
     }
 }

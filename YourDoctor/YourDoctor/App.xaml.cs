@@ -14,5 +14,6 @@ namespace YourDoctor
     public partial class App : Application
     {
         public static string RoleUsers { get; set; }
+
     }
 }

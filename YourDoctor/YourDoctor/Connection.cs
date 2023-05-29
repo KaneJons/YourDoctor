@@ -7,9 +7,19 @@ namespace YourDoctor
 {
      class Connection
     {
-        public static NpgsqlConnection conn = new NpgsqlConnection("Server=localhost; Database=YourDoctors;" +
-            "User Id=postgres;Password=Devilmaycry135790;");
-        public static DataSet ds = new DataSet();
+        //public static NpgsqlConnection conn = new NpgsqlConnection("Server=localhost; Database=YourDoctors;" +
+        //    "User Id=postgres;Password=Devilmaycry135790;");
+
+        static string host = "rc1b-vgck3dsn3lxaqtk1.mdb.yandexcloud.net";
+        static string port = "6432";
+        static string db = "YourDoctor";
+        static string username = "MostWanted";
+        static string password = "#(rspeedneedfo'_";
+        static string connString = $"Host={host};Port={port};Database={db};Username={username};Password={password};Ssl Mode=Require; Trust Server Certificate=true;";
+
+        public static NpgsqlConnection conn = new NpgsqlConnection(connString);
+
+    public static DataSet ds = new DataSet();
 
         public bool OpenConnection()
         {
@@ -66,23 +76,6 @@ namespace YourDoctor
             }
         }
 
-        public static void FillGrid(string sql, DataGrid dataGrid)
-        {
-            using (NpgsqlConnection connection = new NpgsqlConnection("Server=localhost; Database=YourDoctor;User " +
-                "Id=postgres;Password=Devilmaycry135790;"))
-            {
-                connection.Open();
-                using (NpgsqlCommand cmdSel = new NpgsqlCommand(sql, connection))
-                {
-                    DataTable dt = new DataTable();
-                    NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmdSel);
-                    da.Fill(dt);
-
-                    dataGrid.ItemsSource = dt.DefaultView;
-                }
-                connection.Close();
-            }
-        }
     }
 }
 

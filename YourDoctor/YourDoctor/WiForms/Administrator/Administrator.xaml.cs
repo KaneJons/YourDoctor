@@ -1,25 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using YourDoctor.WiForms.Administrator.objDoctor;
+using YourDoctor.WiForms.Log;
 using YourDoctor.WiForms.Patient;
 using YourDoctor.WiForms.Service;
 
 namespace YourDoctor.WiForms.Administrator
 {
-    /// <summary>
-    /// Логика взаимодействия для Administrator.xaml
-    /// </summary>
     public partial class Administrator : Window
     {
         public Administrator()
@@ -27,17 +14,40 @@ namespace YourDoctor.WiForms.Administrator
             InitializeComponent();
             App.RoleUsers = textBlock2.Text;
         }
-
-        private void btn_close_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
         private void btn_exit_Click(object sender, RoutedEventArgs e)
         {
            
            Authorization_window authorization_Window = new Authorization_window();
             authorization_Window.Show();
             this.Close();
+        }
+        private void btn_service_Click(object sender, RoutedEventArgs e)
+        {
+            txtBlock.Text = "Услуга";
+            MyFrame.NavigationService.Navigate(new pageService());
+        }
+
+        private void btn_specialist_Click(object sender, RoutedEventArgs e)
+        {
+            txtBlock.Text = "Врач";
+            MyFrame.NavigationService.Navigate(new pageDoctor());
+        }
+
+        private void btn_nurse_Click(object sender, RoutedEventArgs e)
+        {
+            txtBlock.Text = "Медсестра/Медбрат";
+            MyFrame.NavigationService.Navigate(new pageNurse());
+        }
+        private void btn_patients_Click(object sender, RoutedEventArgs e)
+        {
+            txtBlock.Text = "Пациент";
+            MyFrame.NavigationService.Navigate(new pagePatient());
+        }
+
+        private void btn_lesson_log_Click(object sender, RoutedEventArgs e)
+        {
+            txtBlock.Text = "Журнад записи к врачу";
+            MyFrame.NavigationService.Navigate(new pageLog());
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -89,34 +99,11 @@ namespace YourDoctor.WiForms.Administrator
             this.WindowState = WindowState.Minimized;
 
         }
-
-        private void btn_service_Click(object sender, RoutedEventArgs e)
+        private void btn_close_Click(object sender, RoutedEventArgs e)
         {
-            txtBlock.Text = "Услуга";
-            MyFrame.NavigationService.Navigate(new pageService());
+            Application.Current.Shutdown();
         }
 
-        private void btn_specialist_Click(object sender, RoutedEventArgs e)
-        {
-            txtBlock.Text = "Врач";
-            MyFrame.NavigationService.Navigate(new pageDoctor());
-        }
-
-        private void btn_nurse_Click(object sender, RoutedEventArgs e)
-        {
-            txtBlock.Text = "Медсестра/Медбрат";
-            MyFrame.NavigationService.Navigate(new pageNurse());
-        }   
-        private void btn_patients_Click(object sender, RoutedEventArgs e)
-        {
-            txtBlock.Text = "Пациент";
-            MyFrame.NavigationService.Navigate(new pagePatient());
-        }
-
-        private void btn_lesson_log_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
 

@@ -96,7 +96,7 @@ namespace YourDoctor.WiForms.Administrator
             $"DELETE FROM \"authorization\" WHERE nurse_id={id};" +
             $"DELETE FROM nurse WHERE id={id};" +
                 "COMMIT;";
-                if (!Connection.Modification_Execute(sql))
+                if (Connection.Modification_Execute(sql))
                     return;
                 Connection.Table_Fill("Авторизация", "select *from \"authorization\" order by id asc;");
                 Connection.ds.Tables["Медсестра"].Rows.RemoveAt(n);
