@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using YourDoctor.WiForms;
 using YourDoctor.WiForms.Administrator;
 using YourDoctor.WiForms.Doctor;
 using YourDoctor.WiForms.Nurse;
@@ -276,6 +277,13 @@ namespace YourDoctor
 
         private void btn_close_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
+
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            RemovePassword removePassword = new RemovePassword();
+            removePassword.Show();
             this.Close();
         }
     }

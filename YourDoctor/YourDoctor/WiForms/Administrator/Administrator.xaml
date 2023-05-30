@@ -43,7 +43,7 @@
                                 DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0">
                             <Ellipse>
                                 <Ellipse.Fill>
-                                    <ImageBrush ImageSource="/resources/admin.jpg"/>
+                                    <ImageBrush ImageSource="/resources/Логотип.jpg"/>
                                 </Ellipse.Fill>
                             </Ellipse>
 
@@ -141,7 +141,7 @@
                 <Separator Height="1" Grid.Row="3" Background="#dae2ea" Margin="0 -1 0 10"/>
 
 
-                <Frame Grid.Row="5" Name="MyFrame" NavigationUIVisibility="Hidden" />
+                <Frame Grid.Row="5" Name="MyFrame" NavigationUIVisibility="Hidden" HorizontalAlignment="Left" Width="830" />
 
 
             </Grid>

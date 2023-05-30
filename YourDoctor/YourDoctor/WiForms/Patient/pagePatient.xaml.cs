@@ -34,7 +34,17 @@ namespace YourDoctor.WiForms.Patient
         public pagePatient()
         {
             InitializeComponent();
-            
+            switch (App.RoleUsers)
+            {
+                case "Врач":
+                    var position = btn_addLog.Margin;
+                    btn_addLog.Visibility = Visibility.Hidden;
+                    btn_printLog.Margin= position;
+                    break;
+                default:
+                    break;
+            }
+
         }
         public void Page_Loaded(object sender, RoutedEventArgs e)
         {

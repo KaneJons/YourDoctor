@@ -10,7 +10,7 @@ namespace YourDoctor
         //public static NpgsqlConnection conn = new NpgsqlConnection("Server=localhost; Database=YourDoctors;" +
         //    "User Id=postgres;Password=Devilmaycry135790;");
 
-        static string connString = $"Host={Properties.Resources.host};Port={Properties.Resources.port};Database={Properties.Resources.db};Username={Properties.Resources.username};Password={Properties.Resources.password};Ssl Mode=Require; Trust Server Certificate=true;";
+        static string connString = $"Host={Properties.Resources.host};Port={Properties.Resources.port};Database={Properties.Resources.db};Username={Properties.Resources.dark};Password={Properties.Resources.souls};Ssl Mode=Require; Trust Server Certificate=true;";
 
         public static NpgsqlConnection conn = new NpgsqlConnection(connString);
 

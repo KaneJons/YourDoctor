@@ -37,11 +37,11 @@ namespace YourDoctor.WiForms.Patient
                 FieldsForm_Fill();
             switch(App.RoleUsers)
             {
-                case "Медсестра":
-                    btn_Delete.Visibility = Visibility.Hidden;
-                    btn_Save.Width = btn_Save.Width * 2.3;
+                case "Администратор":
                     break;
                 default:
+                    btn_Delete.Visibility = Visibility.Hidden;
+                    btn_Save.Width = btn_Save.Width * 2.3;
                     break;
             }
         }

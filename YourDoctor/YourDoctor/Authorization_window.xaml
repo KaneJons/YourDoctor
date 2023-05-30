@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YourDoctor"
         mc:Ignorable="d"
-        Title="Authorization_window" Height="300" Width="380"
+        Title="Authorization_window" Height="330" Width="380"
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize"
         MouseDown="MainWindow_OnMouseDown"
@@ -120,8 +120,8 @@
 
 
 
-                <StackPanel Orientation="Horizontal" Margin="20,12,0,0" Width="100">
-                    <Button x:Name="btn_entry" Width="100" Height="40" Content="Войти" Margin="0,0,60,0" Click="Button_Click_login">
+                <StackPanel Orientation="Horizontal" Margin="-166,12,0,0" Width="100">
+                    <Button x:Name="btn_entry" Width="100" Height="40" Content="Войти" Margin="0,0,59,0" Click="Button_Click_login">
                         <Button.Resources>
                             <Style TargetType="{x:Type Button}">
                                 <Setter Property="Foreground" Value="White"/>
@@ -149,9 +149,32 @@
                             </Style>
                         </Button.Resources>
                     </Button>
+
+
                 </StackPanel>
 
             </StackPanel>
+            <TextBlock Text="Забыли пароль?"
+           FontWeight="Light"
+           FontFamily="Helvetica"
+           FontSize="17"
+           HorizontalAlignment="Left"
+           Margin="198,83,0,56"
+           Grid.Row="1"
+           Width="121" MouseDown="TextBlock_MouseDown">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Foreground" Value="GhostWhite" />
+                        <Setter Property="Cursor" Value="Hand" />
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="Aqua" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
 
 
 
