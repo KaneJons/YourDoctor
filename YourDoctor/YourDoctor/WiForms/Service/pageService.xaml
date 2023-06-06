@@ -41,13 +41,13 @@
                 </Grid.RowDefinitions>
 
 
-                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" SelectionChanged="nurseDataGrid_SelectionChanged" Grid.Row="5" x:Name="nurseDataGrid" Margin="0,20,0,0" HorizontalAlignment="Left" Width="570" Height="390" VerticalAlignment="Top">
+                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" SelectionChanged="nurseDataGrid_SelectionChanged" Grid.Row="5" x:Name="nurseDataGrid" Margin="10,79,0,0" HorizontalAlignment="Left" Width="570" Height="321" VerticalAlignment="Top">
 
                     <DataGrid.Columns>
 
                         <!-- <DataGridTextColumn Header="Код" IsReadOnly="True"  Width="auto" Binding="{Binding id}"/>-->
-                        
-                       
+
+
                         <DataGridTextColumn Header="Название" IsReadOnly="True"  Width="auto" Binding="{Binding name}"/>
 
                         <DataGridTemplateColumn  IsReadOnly="True" Width="auto">
@@ -64,6 +64,8 @@
                     </DataGrid.Columns>
 
                 </DataGrid>
+                <TextBlock x:Name="txtB" Text="Поиск по названию:" Margin="10,40,0,0" VerticalAlignment="Top" Height="34" FontSize="18" HorizontalAlignment="Left" Width="171" Grid.RowSpan="6"/>
+                <TextBox x:Name="txtFilter" Style="{StaticResource textboxFilter}" Margin="186,31,0,0" VerticalAlignment="Top" Height="38" FontSize="16" HorizontalAlignment="Left" Width="328" TextChanged="txtFilter_TextChanged" Grid.RowSpan="6"/>
 
             </Grid>
 

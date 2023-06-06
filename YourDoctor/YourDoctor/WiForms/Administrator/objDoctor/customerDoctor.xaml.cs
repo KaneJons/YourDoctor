@@ -32,13 +32,13 @@ namespace YourDoctor.WiForms.Administrator.objDoctor
             };
             comboBox1.ItemsSource = gender;
             n = id;
-            if (Connection.ds.Tables["Пациент"].Rows.Count > n)
+            if (Connection.ds.Tables["Доктор"].Rows.Count > n)
                 FieldsForm_Fill();
         }
 
         private void FieldsForm_Fill()
         {
-            using (var tab = Connection.ds.Tables["Пациент"])
+            using (var tab = Connection.ds.Tables["Доктор"])
             {
                 txtFamily.Text = tab.Rows[n]["family"].ToString();
                 txtImy.Text = tab.Rows[n]["imy"].ToString();
@@ -59,6 +59,18 @@ namespace YourDoctor.WiForms.Administrator.objDoctor
         string sql;
         private void btn_Save_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                string formattedPhoneNumber = Generate.FormatPhoneNumber(txtNumberPhone.Text);
+
+                txtNumberPhone.Text = formattedPhoneNumber;
+            }
+            catch (ArgumentException ex)
+            {
+                // Выводим сообщение об ошибке в формате номера телефона
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка");
+                return;
+            }
             try
             {
                 string f = txtFamily.Text;

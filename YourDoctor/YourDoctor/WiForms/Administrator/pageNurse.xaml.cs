@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using YourDoctor.WiForms.Patient;
 
 namespace YourDoctor.WiForms.Administrator
 {
@@ -36,7 +25,7 @@ namespace YourDoctor.WiForms.Administrator
         }
 
         
-      
+      Generate generate = new Generate();
 
         private void btn_addLog_Click(object sender, RoutedEventArgs e)
         {
@@ -45,11 +34,42 @@ namespace YourDoctor.WiForms.Administrator
 
         private void nurseDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             if (nurseDataGrid.SelectedItem != null) // Если выбрана строка
             {
-                this.NavigationService.Navigate(new customerNurse(nurseDataGrid.SelectedIndex));
+                DataRowView selectedRow = nurseDataGrid.SelectedItem as DataRowView;
+
+                if (selectedRow != null)
+                {
+                    int selectedId = Convert.ToInt32(selectedRow["id"]);
+                    DataRowView foundRow = generate.FindRowById(selectedId, "Медсестра");
+
+                    if (foundRow != null)
+                    {
+                        int selectedRowIndex = Connection.ds.Tables["Медсестра"].Rows.IndexOf(foundRow.Row);
+
+                        this.NavigationService.Navigate(new customerNurse(selectedRowIndex));
+                    }
+                }
             }
-            
+
+        }
+
+        private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = txtFilter.Text;
+
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                nurseDataGrid.ItemsSource = Connection.ds.Tables["Медсестра"].DefaultView;
+            }
+            else
+            {
+                var filteredView = new DataView(Connection.ds.Tables["Медсестра"]);
+                filteredView.RowFilter = $"fio LIKE '%{searchText}%'";
+
+                nurseDataGrid.ItemsSource = filteredView;
+            }
         }
     }
 }

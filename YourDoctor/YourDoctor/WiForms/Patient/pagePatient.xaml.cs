@@ -2,21 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using YourDoctor.WiForms.Administrator.objDoctor;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
@@ -46,6 +34,7 @@ namespace YourDoctor.WiForms.Patient
             }
 
         }
+        Generate generate = new Generate();
         public void Page_Loaded(object sender, RoutedEventArgs e)
         {
             string sql = "select * from patient order by id asc;";
@@ -66,12 +55,41 @@ namespace YourDoctor.WiForms.Patient
         private void nurseDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-           
             if (nurseDataGrid.SelectedItem != null) // Если выбрана строка
             {
-                this.NavigationService.Navigate(new customerPatient(nurseDataGrid.SelectedIndex));
+                DataRowView selectedRow = nurseDataGrid.SelectedItem as DataRowView;
+
+                if (selectedRow != null)
+                {
+                    int selectedId = Convert.ToInt32(selectedRow["id"]);
+                    DataRowView foundRow = generate.FindRowById(selectedId,"Пациент");
+
+                    if (foundRow != null)
+                    {
+                        int selectedRowIndex = Connection.ds.Tables["Пациент"].Rows.IndexOf(foundRow.Row);
+
+                        this.NavigationService.Navigate(new customerPatient(selectedRowIndex));
+                    }
+                }
             }
 
+        }
+
+        private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = txtFilter.Text;
+
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                nurseDataGrid.ItemsSource = Connection.ds.Tables["Пациент"].DefaultView;
+            }
+            else
+            {
+                var filteredView = new DataView(Connection.ds.Tables["Пациент"]);
+                filteredView.RowFilter = $"family LIKE '%{searchText}%' OR imy LIKE '%{searchText}%' OR otchestvo LIKE '%{searchText}%' OR (family + ' ' + imy + ' ' + otchestvo) LIKE '%{searchText}%'";
+
+                nurseDataGrid.ItemsSource = filteredView;
+            }
         }
 
         private void btn_printLog_Click(object sender, RoutedEventArgs e)
@@ -102,7 +120,7 @@ namespace YourDoctor.WiForms.Patient
 
                 // Добавляем строку заголовка
                 Row titleRow = new Row();
-                Cell titleCell = CreateTextCell("Список пациентов медицинского центра ООО Ваш Доктор");
+                Cell titleCell = generate.CreateTextCell("Список пациентов медицинского центра ООО Ваш Доктор");
                 titleRow.AppendChild(titleCell);
                 sheetData.AppendChild(titleRow);
 
@@ -137,7 +155,7 @@ namespace YourDoctor.WiForms.Patient
                 Row headerRow = new Row();
                 foreach (DataColumn column in dataTable.Columns)
                 {
-                    Cell cell = CreateTextCell(column.ColumnName);
+                    Cell cell = generate.CreateTextCell(column.ColumnName);
                     headerRow.AppendChild(cell);
                 }
                 sheetData.AppendChild(headerRow);
@@ -150,7 +168,7 @@ namespace YourDoctor.WiForms.Patient
                     Row dataRow = new Row();
                     foreach (DataColumn column in dataTable.Columns)
                     {
-                        Cell cell = CreateTextCell(row[column.ColumnName].ToString());
+                        Cell cell = generate.CreateTextCell(row[column.ColumnName].ToString());
                         dataRow.AppendChild(cell);
                     }
                     sheetData.AppendChild(dataRow);
@@ -171,13 +189,8 @@ namespace YourDoctor.WiForms.Patient
 
 
         }
-        private Cell CreateTextCell(string text)
-        {
-            Cell cell = new Cell();
-            cell.DataType = CellValues.String;
-            cell.CellValue = new CellValue(text);
-            return cell;
-        }
+
+       
     }
     }
 

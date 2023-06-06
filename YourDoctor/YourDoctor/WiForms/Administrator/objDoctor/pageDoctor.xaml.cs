@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml;
+using System;
+using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace YourDoctor.WiForms.Administrator.objDoctor
 {
     /// <summary>
     /// Логика взаимодействия для pageDoctor.xaml
     /// </summary>
-    public partial class pageDoctor : Page
+    public partial class pageDoctor : System.Windows.Controls.Page
     {
         public pageDoctor()
         {
@@ -33,7 +28,7 @@ namespace YourDoctor.WiForms.Administrator.objDoctor
             nurseDataGrid.SelectionMode = (DataGridSelectionMode)DataGridSelectionUnit.FullRow;
         }
 
-
+        Generate generate = new Generate();
 
 
         private void btn_addLog_Click(object sender, RoutedEventArgs e)
@@ -43,11 +38,42 @@ namespace YourDoctor.WiForms.Administrator.objDoctor
 
         private void nurseDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             if (nurseDataGrid.SelectedItem != null) // Если выбрана строка
             {
-                this.NavigationService.Navigate(new customerDoctor(nurseDataGrid.SelectedIndex));
+                DataRowView selectedRow = nurseDataGrid.SelectedItem as DataRowView;
+
+                if (selectedRow != null)
+                {
+                    int selectedId = Convert.ToInt32(selectedRow["id"]);
+                    DataRowView foundRow = generate.FindRowById(selectedId, "Доктор");
+
+                    if (foundRow != null)
+                    {
+                        int selectedRowIndex = Connection.ds.Tables["Доктор"].Rows.IndexOf(foundRow.Row);
+
+                        this.NavigationService.Navigate(new customerDoctor(selectedRowIndex));
+                    }
+                }
             }
 
+        }
+
+        private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = txtFilter.Text;
+
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                nurseDataGrid.ItemsSource = Connection.ds.Tables["Доктор"].DefaultView;
+            }
+            else
+            {
+                var filteredView = new DataView(Connection.ds.Tables["Доктор"]);
+                filteredView.RowFilter = $"family LIKE '%{searchText}%' OR imy LIKE '%{searchText}%' OR otchestvo LIKE '%{searchText}%' OR (family + ' ' + imy + ' ' + otchestvo) LIKE '%{searchText}%'";
+
+                nurseDataGrid.ItemsSource = filteredView;
+            }
         }
     }
 }

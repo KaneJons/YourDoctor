@@ -70,6 +70,18 @@ namespace YourDoctor.WiForms.Patient
         {
             try
             {
+                string formattedPhoneNumber = Generate.FormatPhoneNumber(txtNumberPhone.Text);
+
+                txtNumberPhone.Text = formattedPhoneNumber;
+            }
+            catch (ArgumentException ex)
+            {
+                // Выводим сообщение об ошибке в формате номера телефона
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка");
+                return;
+            }
+            try
+            {
                 string f = txtFamily.Text;
                 string i = txtImy.Text;
                 string o = txtOtchestvo.Text;

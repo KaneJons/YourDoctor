@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace YourDoctor.WiForms.Service
         {
             InitializeComponent();
         }
-
+        Generate generate = new Generate(); 
         public void Page_Loaded(object sender, RoutedEventArgs e)
         {
             string sql = "select * from service order by id asc;";
@@ -42,11 +43,42 @@ namespace YourDoctor.WiForms.Service
 
         private void nurseDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             if (nurseDataGrid.SelectedItem != null) // Если выбрана строка
             {
-                this.NavigationService.Navigate(new customerService(nurseDataGrid.SelectedIndex));
+                DataRowView selectedRow = nurseDataGrid.SelectedItem as DataRowView;
+
+                if (selectedRow != null)
+                {
+                    int selectedId = Convert.ToInt32(selectedRow["id"]);
+                    DataRowView foundRow = generate.FindRowById(selectedId, "Услуга");
+
+                    if (foundRow != null)
+                    {
+                        int selectedRowIndex = Connection.ds.Tables["Услуга"].Rows.IndexOf(foundRow.Row);
+
+                        this.NavigationService.Navigate(new customerService(selectedRowIndex));
+                    }
+                }
             }
 
+        }
+
+        private void txtFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string searchText = txtFilter.Text;
+
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                nurseDataGrid.ItemsSource = Connection.ds.Tables["Услуга"].DefaultView;
+            }
+            else
+            {
+                var filteredView = new DataView(Connection.ds.Tables["Услуга"]);
+                filteredView.RowFilter = $"name LIKE '%{searchText}%'";
+
+                nurseDataGrid.ItemsSource = filteredView;
+            }
         }
     }
 }

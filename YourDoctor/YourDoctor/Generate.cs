@@ -1,5 +1,8 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -138,5 +141,29 @@ namespace YourDoctor
 
         }
 
+        public Cell CreateTextCell(string text)
+        {
+            Cell cell = new Cell();
+            cell.DataType = CellValues.String;
+            cell.CellValue = new CellValue(text);
+            return cell;
+        }
+
+        public DataRowView FindRowById(int patientId, string name)
+        {
+            DataView dataView = Connection.ds.Tables[name].DefaultView;
+            DataRowView row = null;
+
+            DataRowView[] foundRows = dataView.Cast<DataRowView>()
+                                              .Where(r => Convert.ToInt32(r["id"]) == patientId)
+                                              .ToArray();
+
+            if (foundRows.Length > 0)
+            {
+                row = foundRows[0];
+            }
+
+            return row;
+        }
     }
 }

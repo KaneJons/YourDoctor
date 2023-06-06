@@ -61,6 +61,18 @@ namespace YourDoctor.WiForms.Administrator
         {
             try
             {
+                string formattedPhoneNumber = Generate.FormatPhoneNumber(txtNumberPhone.Text);
+
+                txtNumberPhone.Text = formattedPhoneNumber;
+            }
+            catch (ArgumentException ex)
+            {
+                // Выводим сообщение об ошибке в формате номера телефона
+                MessageBox.Show($"Ошибка: {ex.Message}", "Ошибка");
+                return;
+            }
+            try
+            {
                 string id = Connection.ds.Tables["Медсестра"].Rows[n]["id"].ToString();
                 sql = "BEGIN TRANSACTION; " +
                     $"UPDATE nurse SET family='{txtFamily.Text}', imy='{txtImy.Text}', otchestvo='{txtOtchestvo.Text}'," +

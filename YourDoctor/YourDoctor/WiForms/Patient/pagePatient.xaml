@@ -41,7 +41,7 @@
                 </Grid.RowDefinitions>
 
 
-                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" SelectionChanged="nurseDataGrid_SelectionChanged" Grid.Row="5" x:Name="nurseDataGrid" Margin="0,20,0,0" HorizontalAlignment="Left" Width="570" Height="390" VerticalAlignment="Top">
+                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" SelectionChanged="nurseDataGrid_SelectionChanged" Grid.Row="5" x:Name="nurseDataGrid" Margin="0,89,0,0" HorizontalAlignment="Left" Width="570" Height="321" VerticalAlignment="Top">
 
                     <DataGrid.Columns>
 
@@ -90,6 +90,8 @@
                     <TextBlock Text="Распечатать список"/>
                 </StackPanel>
             </Button>
+            <TextBox x:Name="txtFilter" Style="{StaticResource textboxFilter}" Margin="171,45,0,0" VerticalAlignment="Top" Height="38" FontSize="16" HorizontalAlignment="Left" Width="302" Grid.Column="1" TextChanged="txtFilter_TextChanged"/>
+            <TextBlock x:Name="txtB" Text="Поиск по ФИО:" Margin="23,58,0,0" VerticalAlignment="Top" Height="33" FontSize="18" HorizontalAlignment="Left" Width="148" Grid.Column="1"/>
 
         </Grid>
     </Border>
