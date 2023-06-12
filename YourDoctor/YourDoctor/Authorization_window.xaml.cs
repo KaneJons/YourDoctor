@@ -13,9 +13,7 @@ using YourDoctor.WiForms.Nurse;
 
 namespace YourDoctor
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
+
     public partial class Authorization_window : Window
     {
         public Authorization_window()
@@ -24,11 +22,11 @@ namespace YourDoctor
             try
             {
                 connection = new Connection();
-                // Дополнительный код, в котором используется объект connection
+               
             }
             catch (Exception ex)
             {
-                MessageBox.Show("","Ошибка",MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("Не удалось получить обратный ответ от сервера","Ошибка",MessageBoxButton.OK,MessageBoxImage.Error);
                 Console.WriteLine($"Ошибка инициализации подключения: {ex}");
                 // Дополнительная обработка ошибки
             }
@@ -43,7 +41,7 @@ namespace YourDoctor
         Connection connection = null;
 
 
-        private async void Button_Click_login(object sender, RoutedEventArgs e)
+        private  void Button_Click_login(object sender, RoutedEventArgs e)
         {
 
             if (textbox2.Visibility == Visibility.Hidden && passwordBox.Visibility == Visibility.Visible)
@@ -153,7 +151,7 @@ namespace YourDoctor
                     }
                     catch (NpgsqlException x)
                     {
-                        MessageBox.Show($"{x}");
+                        MessageBox.Show("Перезапустите приложение","Ошибка",MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }

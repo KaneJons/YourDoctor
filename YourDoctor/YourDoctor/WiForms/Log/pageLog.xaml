@@ -3,12 +3,74 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:local="clr-namespace:YourDoctor.WiForms.Log"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="pageLog">
+      Title="pageNurse"  Height="720" Width="1080"  Background="Transparent" Loaded="Page_Loaded"
+        >
 
-    <Grid>
-        
-    </Grid>
+
+    <Border Background="#eff2f7" CornerRadius="30" >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <!--Левое меню-->
+
+            <Grid Margin="0,0,4,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+
+            </Grid>
+
+            <!-- Основной раздел-->
+            <Grid Grid.Column="1" Margin="10,20,10,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+
+                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" SelectionChanged="nurseDataGrid_SelectionChanged" Grid.Row="5" x:Name="nurseDataGrid" Margin="10,205,0,0" HorizontalAlignment="Left" Width="766" Height="195" VerticalAlignment="Top">
+
+                    <DataGrid.Columns>
+
+                         <DataGridTextColumn Header="Код" IsReadOnly="True"  Width="auto" Binding="{Binding id}"/>
+                        <DataGridTextColumn Header="ФИО доктора" IsReadOnly="True"  Width="auto" Binding="{Binding doctor_fio}"/>
+                        <DataGridTextColumn Header="ФИО пациента" IsReadOnly="True"  Width="auto" Binding="{Binding patient_fio}"/>
+                        <DataGridTextColumn Header="Услуга" IsReadOnly="True"  Width="auto" Binding="{Binding service_name}"/>
+                        <DataGridTextColumn Header="Дата" IsReadOnly="True"  Width="auto" Binding="{Binding date, StringFormat=dd-MM-yyyy}"/>
+                        <DataGridTextColumn Header="Время" IsReadOnly="True"  Width="auto" Binding="{Binding time}"/>
+                        <DataGridTextColumn Header="Статус" IsReadOnly="True"  Width="auto" Binding="{Binding status}"/>
+
+
+                        <DataGridTemplateColumn  IsReadOnly="True" Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+
+
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+                </DataGrid>
+
+            </Grid>
+
+        </Grid>
+    </Border>
 </Page>

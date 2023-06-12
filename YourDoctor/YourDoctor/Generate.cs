@@ -149,13 +149,13 @@ namespace YourDoctor
             return cell;
         }
 
-        public DataRowView FindRowById(int patientId, string name)
+        public DataRowView FindRowById(int Id, string name)
         {
             DataView dataView = Connection.ds.Tables[name].DefaultView;
             DataRowView row = null;
 
             DataRowView[] foundRows = dataView.Cast<DataRowView>()
-                                              .Where(r => Convert.ToInt32(r["id"]) == patientId)
+                                              .Where(r => Convert.ToInt32(r["id"]) == Id)
                                               .ToArray();
 
             if (foundRows.Length > 0)

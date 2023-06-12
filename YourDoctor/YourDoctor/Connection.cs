@@ -1,5 +1,7 @@
 ﻿using Npgsql;
+using System;
 using System.Data;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,11 +9,9 @@ namespace YourDoctor
 {
      class Connection
     {
-        //public static NpgsqlConnection conn = new NpgsqlConnection("Server=localhost; Database=YourDoctors;" +
-        //    "User Id=postgres;Password=Devilmaycry135790;");
 
-        static string connString = $"Host={Properties.Resources.host};Port={Properties.Resources.port};Database={Properties.Resources.db};Username={Properties.Resources.dark};Password={Properties.Resources.souls};Ssl Mode=Require; Trust Server Certificate=true;";
-
+        static string connString = $"Host={Properties.Resources.host};Port={Properties.Resources.port};Database={Properties.Resources.db};Username={Properties.Resources.dark};Password={Properties.Resources.souls};SSL Mode=VerifyFull;" ;
+        
         public static NpgsqlConnection conn = new NpgsqlConnection(connString);
 
     public static DataSet ds = new DataSet();
@@ -25,7 +25,8 @@ namespace YourDoctor
             }
             catch (NpgsqlException e)
             {
-                MessageBox.Show($"Ошибка:{e}");
+                MessageBox.Show($"Ошибка:Не удалось подключиться к серверу. \nПроверьте работу сервера или перезапустите его." +
+                    $" \nТак же проверьте наличие подключения к сети","Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
         }
@@ -36,6 +37,7 @@ namespace YourDoctor
                 ds.Tables[name].Clear();
             using (var adapter = new NpgsqlDataAdapter(sql, conn))
             {
+                
                 adapter.Fill(ds,name);
                 conn.Close();
             }
