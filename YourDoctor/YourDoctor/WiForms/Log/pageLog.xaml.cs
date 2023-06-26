@@ -131,32 +131,7 @@ namespace YourDoctor.WiForms.Log
                 sheets.Append(sheet);
 
                 // Получаем таблицу "Запись" из объекта DataSet
-                DataTable dataTable = new DataTable();
-                foreach (System.Windows.Controls.DataGridColumn column in nurseDataGrid.Columns)
-                {
-                    dataTable.Columns.Add(column.Header.ToString());
-                }
-
-                foreach (var item in Connection.ds.Tables["Запись"].Rows)
-                {
-                    DataRow dataRow = dataTable.NewRow();
-                    foreach (System.Windows.Controls.DataGridColumn column in nurseDataGrid.Columns)
-                    {
-                        var binding = column.ClipboardContentBinding as Binding;
-                        if (binding != null)
-                        {
-                            var propertyName = binding.Path.Path;
-                            var propertyInfo = item.GetType().GetProperty(propertyName);
-                            if (propertyInfo != null)
-                            {
-                                var propertyValue = propertyInfo.GetValue(item);
-                                dataRow[column.Header.ToString()] = propertyValue;
-                            }
-                        }
-                    }
-                    dataTable.Rows.Add(dataRow);
-                }
-
+                DataTable dataTable = Connection.ds.Tables["Запись"];
 
                 // Заполняем заголовок
                 SheetData sheetData = worksheetPart.Worksheet.GetFirstChild<SheetData>();
@@ -194,30 +169,33 @@ namespace YourDoctor.WiForms.Log
                 // Добавляем объединение ячеек в документ
                 MergeCell mergeCell = new MergeCell() { Reference = headerRange };
                 mergeCells.Append(mergeCell);
+
                 // Заполняем заголовки столбцов
                 Row headerRow = new Row();
-                foreach (DataColumn column in dataTable.Columns)
+                foreach (System.Windows.Controls.DataGridColumn column in nurseDataGrid.Columns)
                 {
-                    Cell cell = generate.CreateTextCell(column.ColumnName);
+                    Cell cell = generate.CreateTextCell(column.Header.ToString());
                     headerRow.AppendChild(cell);
                 }
                 sheetData.AppendChild(headerRow);
-
-
 
                 // Заполняем данными из таблицы
                 foreach (DataRow row in dataTable.Rows)
                 {
                     Row dataRow = new Row();
-                    foreach (DataColumn column in dataTable.Columns)
+                    foreach (System.Windows.Controls.DataGridColumn column in nurseDataGrid.Columns)
                     {
-                        Cell cell = generate.CreateTextCell(row[column.ColumnName].ToString());
-                        dataRow.AppendChild(cell);
+                        var binding = column.ClipboardContentBinding as Binding;
+                        if (binding != null)
+                        {
+                            var propertyName = binding.Path.Path;
+                            var propertyValue = row[propertyName];
+                            Cell cell = generate.CreateTextCell(propertyValue.ToString());
+                            dataRow.AppendChild(cell);
+                        }
                     }
                     sheetData.AppendChild(dataRow);
                 }
-
-
 
                 // Сохраняем и закрываем документ
                 workbookPart.Workbook.Save();
