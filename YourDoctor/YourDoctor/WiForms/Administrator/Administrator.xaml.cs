@@ -46,7 +46,7 @@ namespace YourDoctor.WiForms.Administrator
 
         private void btn_lesson_log_Click(object sender, RoutedEventArgs e)
         {
-            txtBlock.Text = "Журнад записи к врачу";
+            txtBlock.Text = "Журнал записи к врачу";
             MyFrame.NavigationService.Navigate(new pageLog());
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

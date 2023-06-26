@@ -4,13 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:local="clr-namespace:YourDoctor.WiForms.Log"
+      xmlns:local="clr-namespace:YourDoctor.WiForms.Log" xmlns:local1="clr-namespace:YourDoctor.WiForms.Other"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="pageNurse"  Height="720" Width="1080"  Background="Transparent" Loaded="Page_Loaded"
+      d:DesignHeight="450"
+      Title="pageNurse"  Height="720" Width="825"  Background="Transparent" Loaded="Page_Loaded"
         >
 
-
+    <Page.Resources>
+        <local1:TimeSpanToStringConverter x:Key="TimeSpanConverter"/>
+    </Page.Resources>
+    
     <Border Background="#eff2f7" CornerRadius="30" >
         <Grid>
             <Grid.ColumnDefinitions>
@@ -41,20 +44,20 @@
                 </Grid.RowDefinitions>
 
 
-                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" SelectionChanged="nurseDataGrid_SelectionChanged" Grid.Row="5" x:Name="nurseDataGrid" Margin="10,205,0,0" HorizontalAlignment="Left" Width="766" Height="195" VerticalAlignment="Top">
+                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" SelectionChanged="nurseDataGrid_SelectionChanged" Grid.Row="5" x:Name="nurseDataGrid" Margin="10,205,0,0" HorizontalAlignment="Left" Width="766" Height="195" VerticalAlignment="Top" GridLinesVisibility="None" >
 
                     <DataGrid.Columns>
 
-                         <DataGridTextColumn Header="Код" IsReadOnly="True"  Width="auto" Binding="{Binding id}"/>
+                        <DataGridTextColumn Header="Код" IsReadOnly="True"  Width="auto" Binding="{Binding id}"/>
                         <DataGridTextColumn Header="ФИО доктора" IsReadOnly="True"  Width="auto" Binding="{Binding doctor_fio}"/>
                         <DataGridTextColumn Header="ФИО пациента" IsReadOnly="True"  Width="auto" Binding="{Binding patient_fio}"/>
                         <DataGridTextColumn Header="Услуга" IsReadOnly="True"  Width="auto" Binding="{Binding service_name}"/>
                         <DataGridTextColumn Header="Дата" IsReadOnly="True"  Width="auto" Binding="{Binding date, StringFormat=dd-MM-yyyy}"/>
-                        <DataGridTextColumn Header="Время" IsReadOnly="True"  Width="auto" Binding="{Binding time}"/>
+                        <DataGridTextColumn Header="Время" IsReadOnly="True"  Width="auto" Binding="{Binding time, Converter={StaticResource TimeSpanConverter}}"/>
                         <DataGridTextColumn Header="Статус" IsReadOnly="True"  Width="auto" Binding="{Binding status}"/>
 
 
-                        <DataGridTemplateColumn  IsReadOnly="True" Width="auto">
+                        <!--<DataGridTemplateColumn  IsReadOnly="True" Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -63,11 +66,35 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        </DataGridTemplateColumn>-->
 
                     </DataGrid.Columns>
 
                 </DataGrid>
+                <TextBlock x:Name="txtB" Text="Поиск по ФИО пациента:" Margin="10,40,0,0" VerticalAlignment="Top" Height="34" FontSize="18" HorizontalAlignment="Left" Width="209" Grid.RowSpan="6"/>
+                <TextBox x:Name="txtFilter" Style="{StaticResource textboxFilter}" Margin="229,26,0,0" VerticalAlignment="Top" Height="38" FontSize="16" HorizontalAlignment="Left" Width="328" TextChanged="txtFilter_TextChanged" Grid.RowSpan="6"/>
+                <TextBlock x:Name="txtB_Copy" Text="Поиск по врачу:" Margin="10,74,0,0" VerticalAlignment="Top" Height="34" FontSize="18" HorizontalAlignment="Left" Width="209" Grid.RowSpan="6"/>
+                <ComboBox Style="{DynamicResource ComboBoxStyle1}" x:Name="comboBox1" ToolTip="Выберите из списка" ItemsSource="{Binding}" Margin="227,69,0,0" VerticalAlignment="Top" Height="33" Foreground="Black" HorizontalAlignment="Left" Width="325" Grid.RowSpan="6" SelectionChanged="comboBox1_SelectionChanged"/>
+                <TextBlock x:Name="txtB_Copy1" Text="Поиск по дате:" Margin="10,108,0,0" VerticalAlignment="Top" Height="34" FontSize="18" HorizontalAlignment="Left" Width="209" Grid.RowSpan="6"/>
+                <DatePicker Style="{DynamicResource DatePickerStyle1}" x:Name="datePicker" FontSize="20" Margin="227,111,0,271" IsTodayHighlighted="True" BorderBrush="{x:Null}" HorizontalAlignment="Left" Width="356" Grid.RowSpan="6" SelectedDateChanged="datePicker_SelectedDateChanged"/>
+                <Button x:Name="btn_addLog" Style="{StaticResource saveButton}" Margin="450,158,0,0" Width="194" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btn_addLog_Click" Grid.Row="5">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="20" Height="20" Margin="0 1 8 0"/>
+                        <TextBlock Text="Добаить запись к врачу"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btn_printLog" Style="{StaticResource clearButton}" Margin="178,158,0,0" Width="152" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Click="btn_printLog_Click" Grid.RowSpan="6">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="Printer" VerticalAlignment="Center" Width="20" Height="20" Margin="0 1 8 0"/>
+                        <TextBlock Text="Распечатать журнал"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="btn_remove_date" Style="{StaticResource etcButton}" Margin="582,108,0,0" Width="125" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Row="5" Click="btn_remove_date_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="CalendarRemove" VerticalAlignment="Center" Width="20" Height="20" Margin="0 1 8 0"/>
+                        <TextBlock Text="Сбросить дату"/>
+                    </StackPanel>
+                </Button>
 
             </Grid>
 

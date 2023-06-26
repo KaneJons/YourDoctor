@@ -1,16 +1,14 @@
 ﻿using Npgsql;
-using System;
 using System.Data;
-using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace YourDoctor
 {
      class Connection
     {
 
-        static string connString = $"Host={Properties.Resources.host};Port={Properties.Resources.port};Database={Properties.Resources.db};Username={Properties.Resources.dark};Password={Properties.Resources.souls};SSL Mode=VerifyFull;" ;
+        static string connString = $"Host={Properties.Resources.host};Port={Properties.Resources.port};Database={Properties.Resources.db};" +
+            $"Username={Properties.Resources.dark};Password={Properties.Resources.souls};SSL Mode=VerifyFull;" ;
         
         public static NpgsqlConnection conn = new NpgsqlConnection(connString);
 
@@ -64,7 +62,20 @@ namespace YourDoctor
                 }
                 catch (NpgsqlException e)
                 {
-                    MessageBox.Show($"Ошибка:{e}");
+                    if (e.Message.Contains("duplicate key value")) // Проверка наличия ключевой фразы в сообщении об ошибке
+                    {
+                        MessageBox.Show("Ошибка: Создание дубликата существующего уже объекта.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else if (e.Message.Contains("column") && e.Message.Contains("does not exist")) // Дополнительная проверка на другую возможную фразу в сообщении об ошибке
+                    {
+                        MessageBox.Show("Ошибка: Введено не корректное значение, пожалуйста исправьте это.\n" +
+                            "Пример ошибки: Введен символ '@', а ожидалась цифра", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка: " + e.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
                     conn.Close();
                     return false;
                 }

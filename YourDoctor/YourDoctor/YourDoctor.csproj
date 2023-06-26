@@ -162,12 +162,28 @@
     <Compile Include="WiForms\Doctor\Doctor.xaml.cs">
       <DependentUpon>Doctor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WiForms\Log\AddLog.xaml.cs">
+      <DependentUpon>AddLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Log\CustomerLog.xaml.cs">
+      <DependentUpon>CustomerLog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WiForms\Log\pageLog.xaml.cs">
       <DependentUpon>pageLog.xaml</DependentUpon>
     </Compile>
     <Compile Include="WiForms\Nurse\Nurse.xaml.cs">
       <DependentUpon>Nurse.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WiForms\Other\formDoctor.xaml.cs">
+      <DependentUpon>formDoctor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Other\formPatient.xaml.cs">
+      <DependentUpon>formPatient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Other\formService.xaml.cs">
+      <DependentUpon>formService.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WiForms\Other\TimeSpanToStringConverter.cs" />
     <Compile Include="WiForms\Patient\addPatient.xaml.cs">
       <DependentUpon>addPatient.xaml</DependentUpon>
     </Compile>
@@ -233,11 +249,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="WiForms\Log\AddLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Log\CustomerLog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WiForms\Log\pageLog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="WiForms\Nurse\Nurse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Other\formDoctor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Other\formPatient.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WiForms\Other\formService.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -308,6 +344,7 @@
   <ItemGroup>
     <Resource Include="Логотип 2.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('..\packages\Microsoft.Extensions.Logging.Abstractions.6.0.0\build\Microsoft.Extensions.Logging.Abstractions.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

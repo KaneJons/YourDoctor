@@ -34,7 +34,7 @@ namespace YourDoctor
             {
                 connection?.close_conn();
             }
-            Connection.Table_Fill("Авторизация", "select *from \"authorization\" order by id asc;");
+            Connection.Table_Fill("Авторизация", "select *from \"authorization\"  order by id asc;");
         }
 
         string password;
@@ -62,97 +62,73 @@ namespace YourDoctor
                 {
                     try
                     {
-                        var loginDict = Connection.ds.Tables["Авторизация"].AsEnumerable()
-                            .ToDictionary(row => row.Field<string>("login"), row => new { Password = row.Field<string>("password"), Role = row.Field<string>("role")});
+                        var authorizationTable = Connection.ds.Tables["Авторизация"];
+                        
+                        var matchedRows = authorizationTable.AsEnumerable()
+                            .Where(row => row.Field<string>("login") == textbox1.Text && testPassw(row.Field<string>("password"), password))
+                            .ToList();
 
-                        if (loginDict.ContainsKey(textbox1.Text))
+                        if (matchedRows.Count > 0)
                         {
-                            if (testPassw(loginDict[textbox1.Text].Password, password))
-                            {
-                                switch (loginDict[textbox1.Text].Role)
-                                {
-                                    case "Администратор":
-                                        Administrator administrator = new Administrator();
-                                        try
-                                        {
-                                            administrator.Show();
-                                        }
-                                        finally
-                                        {
-                                            this.Close();
-                                        }
-                                        break;
-                                    case "Медсестра":
-                                        
-                                        try
-                                        {
-                                            string id="";
-                                            foreach (DataRow row in Connection.ds.Tables["Авторизация"].Rows)
-                                            {
-                                                if (textbox1.Text == row["login"].ToString())
-                                                {
-                                                    id = row["nurse_id"].ToString();
-                                                    break;
-                                                }
-                                            }
-                                            Connection.Table_Fill("Nurse", "select *from \"nurse\" order by id asc;");
-                                            DataRow[] nurseRows = Connection.ds.Tables["Nurse"].Select("id = '" + id + "'");
-                                            if (nurseRows.Length > 0)
-                                            {
-                                                DataRow nurseRow = nurseRows[0];
-                                                Nurse nurse = new Nurse($"{nurseRow["family"]} {nurseRow["imy"]}");
-                                                nurse.Show();
-                                            }
-                                            Connection.ds.Tables["Nurse"].Clear();
-                                            Connection.ds.Tables.Remove("Nurse");
-                                        }
-                                        finally
-                                        {
-                                           this.Close();
-                                        }
-                                        break;
-                                    case "Врач":
-                                        try
-                                        {
-                                            string id = "";
-                                            foreach (DataRow row in Connection.ds.Tables["Авторизация"].Rows)
-                                            {
-                                                if (textbox1.Text == row["login"].ToString())
-                                                {
-                                                    id = row["doctor_id"].ToString();
-                                                    break;
-                                                }
-                                            }
-                                            Connection.Table_Fill("Doctor", "select *from \"doctor\" order by id asc;");
-                                            DataRow[] doctorRows = Connection.ds.Tables["Doctor"].Select("id = '" + id + "'");
-                                            if (doctorRows.Length > 0)
-                                            {
-                                                DataRow doctorRow = doctorRows[0];
-                                                Doctor doctor = new Doctor($"{doctorRow["family"]} {doctorRow["imy"]}");
-                                                doctor.Show();
-                                            }
-                                            Connection.ds.Tables["Doctor"].Clear();
-                                            Connection.ds.Tables.Remove("Doctor");
-                                        }
-                                        finally
-                                        {
-                                            this.Close();
-                                        }
-                                        break;
-                                }
-                            }
+                            DataRow matchedRow = matchedRows[0];
+                            string role = matchedRow.Field<string>("role");
 
+                            switch (role)
+                            {
+                                case "Администратор":
+                                    Administrator administrator = new Administrator();
+                                    try
+                                    {
+                                        administrator.Show();
+                                    }
+                                    finally
+                                    {
+                                        this.Close();
+                                    }
+                                    break;
+                                case "Медсестра":
+                                    string nurseId = matchedRow["nurse_id"].ToString();
+                                    Connection.Table_Fill("Nurse", "select * from \"nurse\" where id = '" + nurseId + "' order by id asc;");
+                                    DataRow[] nurseRows = Connection.ds.Tables["Nurse"].Select();
+                                    if (nurseRows.Length > 0)
+                                    {
+                                        DataRow nurseRow = nurseRows[0];
+                                        Nurse nurse = new Nurse($"{nurseRow["family"]} {nurseRow["imy"]}");
+                                        nurse.Show();
+                                    }
+                                    Connection.ds.Tables["Nurse"].Clear();
+                                    Connection.ds.Tables.Remove("Nurse");
+
+                                    this.Close();
+                                    break;
+                                case "Врач":
+                                    string doctorId = matchedRow["doctor_id"].ToString();
+                                    Connection.Table_Fill("Doctor", "select * from \"doctor\" where id = '" + doctorId + "' order by id asc;");
+                                    DataRow[] doctorRows = Connection.ds.Tables["Doctor"].Select();
+                                    if (doctorRows.Length > 0)
+                                    {
+                                        DataRow doctorRow = doctorRows[0];
+                                        Doctor doctor = new Doctor($"{doctorRow["family"]} {doctorRow["imy"]}");
+                                        doctor.Show();
+                                    }
+                                    Connection.ds.Tables["Doctor"].Clear();
+                                    Connection.ds.Tables.Remove("Doctor");
+
+                                    this.Close();
+                                    break;
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("Неверно введен Логин/Пароль, повторите попытку", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                         MessageBox.Show("Неверно введен Логин/Пароль, повторите попытку", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-
                     }
                     catch (NpgsqlException x)
                     {
-                        MessageBox.Show("Перезапустите приложение","Ошибка",MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show("Перезапустите приложение", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+
+
                 }
             }
 
@@ -221,7 +197,7 @@ namespace YourDoctor
 
             if (!passwordsMatch)
             {
-                MessageBox.Show("Неверно введен Логин/Пароль, повторите попытку", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Неверно введен Логин/Пароль, повторите попытку", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             return true;

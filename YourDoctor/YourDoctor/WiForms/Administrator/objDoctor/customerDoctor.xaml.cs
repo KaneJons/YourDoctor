@@ -130,7 +130,7 @@ namespace YourDoctor.WiForms.Administrator.objDoctor
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Удаление было не выполнено", "Ошибка");
+                MessageBox.Show("Удаление было не выполнено", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
